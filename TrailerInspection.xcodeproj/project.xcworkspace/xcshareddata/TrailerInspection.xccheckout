@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D511A698-F8E1-4DA3-84A8-40BF497F1903</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TrailerInspection</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>52c64db2-d14c-432d-b0da-d8a7da59e3ad++793</key>
+		<string>http://svn.wernerds.net/svn/mobile/TrailerInspection/branches/TrailerInspection_CoreData</string>
+		<key>C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3</key>
+		<string>https://github.com/SwiftyJSON/SwiftyJSON.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TrailerInspection.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>52c64db2-d14c-432d-b0da-d8a7da59e3ad++793</key>
+		<string>../..</string>
+		<key>C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3</key>
+		<string>../../../SwiftyJSON</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>52c64db2-d14c-432d-b0da-d8a7da59e3ad++793</key>
+		<string>http://svn.wernerds.net/svn/mobile</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>http://svn.wernerds.net/svn/mobile/TrailerInspection/branches/TrailerInspection_CoreData/TrailerInspection.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>52c64db2-d14c-432d-b0da-d8a7da59e3ad++793</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SwiftyJSON</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>52c64db2-d14c-432d-b0da-d8a7da59e3ad++793</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TrailerInspection_CoreData</string>
+		</dict>
+	</array>
+</dict>
+</plist>

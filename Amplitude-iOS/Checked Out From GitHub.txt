@@ -1,0 +1,2 @@
+url: https://github.com/amplitude/Amplitude-iOS
+tag: v2.4.0

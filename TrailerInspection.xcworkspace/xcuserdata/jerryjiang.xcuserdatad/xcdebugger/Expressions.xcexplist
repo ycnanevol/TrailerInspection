@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "TrailerInspection.TrailerInspectionReportViewController.(saveReport in _644415A3F696B19DB35F747A886EAEBC) (TrailerInspection.TrailerInspectionReportViewController)(TrailerInspection.Inspection) -&gt; ():TrailerInspectionReportViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "result">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "TrailerInspection.InspectionService.(assignTireData in _A89C106E456DD5ADE1A079DEA691F622) (TrailerInspection.InspectionService)(Swift.Array&lt;TrailerInspection.Inspection.TireData&gt;, inspectionEntity : TrailerInspection.CdInspection) -&gt; ():InspectionService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "TrailerInspection.TrailerInspectionReportViewController.(viewWillAppear (TrailerInspection.TrailerInspectionReportViewController) -&gt; (Swift.Bool) -&gt; ()).(closure #2):TrailerInspectionReportViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.inspection">
+            </PersistentString>
+            <PersistentString
+               value = "inspectionService">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "TrailerInspection.InspectionService.(assignSingleTriStateData in _A89C106E456DD5ADE1A079DEA691F622) (TrailerInspection.InspectionService)(Swift.String, triStateDate : TrailerInspection.InspectionTriStateData) -&gt; TrailerInspection.CdInspectionTriStateData:InspectionService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "triStateDate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

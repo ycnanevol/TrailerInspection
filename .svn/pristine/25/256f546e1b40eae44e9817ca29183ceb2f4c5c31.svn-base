@@ -1,0 +1,97 @@
+//
+//  InspectionDamageType.swift
+//  TrailerInspection
+//
+//  Created by Robert Grimm on 2015-04-15.
+//  Copyright (c) 2015 Werner Enterprises, Inc. All rights reserved.
+//
+
+import Foundation
+
+public enum InspectionDamageType {
+    case Bruise
+    case Cut
+    case Dent
+    case Hole
+    case Missing
+    case Other(additional : String)
+    case Patches
+    case Scratches
+}
+
+extension InspectionDamageType : Equatable {}
+
+public func ==(lhs : InspectionDamageType, rhs : InspectionDamageType) -> Bool {
+    switch (lhs, rhs) {
+    case (.Bruise, .Bruise): return true
+    case (.Cut, .Cut): return true
+    case (.Dent, .Dent): return true
+    case (.Hole, .Hole): return true
+    case (.Missing, .Missing): return true
+    case (.Other(let lhsAdditional), .Other(let rhsAdditional)):
+        return lhsAdditional == rhsAdditional
+    case (.Patches, .Patches): return true
+    case (.Scratches, .Scratches): return true
+    default: return false
+    }
+}
+
+extension InspectionDamageType : Hashable {
+    
+    public var hashValue : Int {
+        switch self {
+        case .Bruise: return 0
+        case .Cut: return 1
+        case .Dent: return 2
+        case .Hole: return 3
+        case .Missing: return 4
+        case let .Other(additional): return 5
+        case .Patches: return 6
+        case .Scratches: return 7
+        }
+    }
+    
+}
+
+extension InspectionDamageType {
+    
+    public init?(hashValue: Int, additional : String? = nil) {
+        switch hashValue {
+        case 0: self = .Bruise
+        case 1: self = .Cut
+        case 2: self = .Dent
+        case 3: self = .Hole
+        case 4: self = .Missing
+        case 5:
+            var additional = additional
+            if additional == nil {
+                additional = ""
+            }
+            
+            self = InspectionDamageType.Other(additional: additional!)
+        case 6: self = .Patches
+        case 7: self = .Scratches
+        default:
+            return nil
+        }
+    }
+    
+}
+
+extension InspectionDamageType : Printable {
+    
+    public var description : String {
+        
+        switch self {
+        case .Bruise: return "Bruise"
+        case .Cut: return "Cut"
+        case .Dent: return "Dent"
+        case .Hole: return "Hole"
+        case .Missing: return "Missing"
+        case let .Other(additional): return "Other"
+        case .Patches: return "Patches"
+        case .Scratches: return "Scratches"
+        }
+    }
+    
+}

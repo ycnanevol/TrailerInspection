@@ -1,0 +1,136 @@
+//
+//  TrailerService.swift
+//  TrailerInspection
+//
+//  Created by Robert Grimm on 2015-03-30.
+//  Copyright (c) 2015 Werner Enterprises, Inc. All rights reserved.
+//
+
+import Foundation
+import SwiftyJSON
+
+public class TrailerService {
+    
+    static let localizedNoErrorMessage = NSLocalizedString("NoErrorMessageOnNonSuccessCode", tableName: "ServiceResponses", bundle: .mainBundle(), value: "The server response did not indicate success and did not include an error message. (HTTP code %@)", comment: "The message to display when a service call does not include a message in its response.")
+    
+    var requestManager : Manager
+    
+    public init(requestManager : Manager) {
+        self.requestManager = requestManager
+    }
+    
+    public convenience init() {
+        self.init(requestManager: Manager(configuration: nil))
+    }
+    
+    public func getTrailerByTrailerNumberAndLastSixVin(#token : Token, links : [String : NSURL], trailerNumber : String, lastSixVin : String, handler : (trailer : Trailer?, nextLinks : [String : NSURL]?, message : String) -> Void) {
+
+        if let getTrailerUrl = links["getTrailer"] {
+            
+            var request = NSMutableURLRequest(URL: getTrailerUrl)
+            
+            request.setValue("WernerServiceToken \(token.value)", forHTTPHeaderField: "Authorization")
+        
+            let parameters = [ "trailerNumber": trailerNumber, "lastSixVin": lastSixVin ]
+            
+            let parameterizedRequest : NSURLRequest
+            let error : NSError?
+            (parameterizedRequest, error) = ParameterEncoding.URL.encode(request, parameters: parameters)
+            
+            // TODO(rgrimm): Handle error
+            
+            requestManager.request(parameterizedRequest).responseJSON { (request, response, data, error) -> Void in
+                var trailer : Trailer?
+                var nextLinks : [String : String]?
+                var message : String
+                
+                // TODO(rgrimm): Handle error object more gracefully
+                
+                if let data : AnyObject = data {
+                    (trailer, nextLinks, message) = self.parseGetTrailerResponse(response: response, data: JSON(data))
+                } else {
+                    message = NSLocalizedString("UnrecognizedResponse", tableName: "ServiceResponses", bundle: .mainBundle(), value: "Unrecognized response from service call", comment: "The error message to display when a service returns a value but it is not in a recognized format")
+                }
+                
+                handler(trailer: trailer, nextLinks : ServiceManager.Support.mapLinks(nextLinks, relativeToUrl: getTrailerUrl), message: message)
+            }
+        } else {
+            
+            handler(trailer: nil, nextLinks: nil, message: "getTrailer link not available!")
+            
+        }
+    }
+    
+    func parseGetTrailerResponse(#response : NSHTTPURLResponse!, data : JSON) -> (Trailer?, [String : String]?, String) {
+        var nextLinks : [String : String]?
+        if let links = data["links"].dictionaryObject as? [String : String] {
+            nextLinks = links
+        } else {
+            nextLinks = nil
+        }
+        
+        if response.statusCode != 200 {
+            if let message = data["message"].string {
+                return (nil, nextLinks, message)
+            } else {
+                return (nil, nextLinks, String(format: TrailerService.localizedNoErrorMessage, "\(response.statusCode)"))
+            }
+        }
+        
+        var trailer : Trailer!
+        
+        if let trailerData = data["trailer"].dictionary {
+        
+            trailer = Trailer()
+            trailer.trailerNumber = trailerData["trailerNumber"]?.string
+            trailer.vin = trailerData["vin"]?.string
+            
+            trailer.make = trailerData["make"]?.string
+            trailer.model = trailerData["modelName"]?.string
+            trailer.modelYear = trailerData["modelYear"]?.string
+            
+            trailer.numberOfAxles = trailerData["numberOfAxles"]?.int
+            trailer.lengthInFeet = trailerData["lengthInFeet"]?.int
+            trailer.heightInFeet = trailerData["heightInFeet"]?.int
+            
+            if let typeString = trailerData["type"]?.string?.lowercaseString {
+                switch typeString {
+                case "van": trailer.trailerType = .Van
+                // TODO(rgrimm): Finish chasing down the reason TCU doesn't return a type at all
+                case "": trailer.trailerType = .TCU
+                default: trailer.trailerType = .Unknown
+                }
+            } else {
+                trailer.trailerType = .Unknown
+            }
+            
+            // Disclaimer: Product owner says this data is only about 40% accurate; probably better not to use it
+            #if TRUST_BAD_TRAILER_STATUS_DATA
+                if let statusString = trailerData["status"]?.stringValue.uppercaseString {
+                    switch statusString {
+                    case "LD": trailer.isLoaded = .True
+                    case "MT": trailer.isLoaded = .False
+                    default:
+                        if true {}
+                    }
+                }
+            #endif
+            
+        } else {
+            trailer = nil
+        }
+        
+        if let message = data["message"].string {
+            return (trailer, nextLinks, message)
+        } else {
+            return (trailer, nextLinks, NSLocalizedString("NoSuccessMessage", tableName: "ServiceResponses", bundle: .mainBundle(), value: "OK", comment: "The message to display when a service call is successful and did not include a message in its response."))
+        }
+    }
+    
+}
+
+#if DEBUG
+    public class TrailerDebugService : TrailerService {
+        
+    }
+#endif

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="DamagedImage" representedClassName="CdDamagedImage" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="identity" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="inpsectionTriStateData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InspectionTriStateData" inverseName="damagedImages" inverseEntity="InspectionTriStateData" syncable="YES"/>
+    </entity>
+    <entity name="Inspection" representedClassName="CdInspection" syncable="YES">
+        <attribute name="carrier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="documentNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dotInspectionExpiration" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="frontBillBox" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="frontGladHands" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="frontOther" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="frontPermitBox" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="frontPlacardHolder" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="frontVinPlate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gpsCargoSensor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="insideFloor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="insideRoof" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="insideWalls" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isLoaded" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="leftABSLights" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="leftAeroSkirt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="leftDollyHandle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="leftOther" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="leftPlacardHolder" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="leftRedMarkerLights" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="leftSliderHoseSpring" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="leftYellowMarkerLights" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="psiLight" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="psiValveWasClosed" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="rearLicensePlate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rearLicensePlateLight" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rearMudFlaps" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rearOther" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rearPlacardHolder" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rearRedMarkerLights" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rightAeroSkirt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rightArrowTurningLights" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rightOther" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rightPlacardHolder" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rightRedMarkerLights" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rightYellowMarkerLights" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="roof" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tailLights" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tireType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="transfer" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tripNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="truckNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="usBroker" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="vin" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="damagedLightDataSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Light" inverseName="inspection" inverseEntity="Light" syncable="YES"/>
+        <relationship name="damagedTriStateDataSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="InspectionTriStateData" inverseName="inspection" inverseEntity="InspectionTriStateData" syncable="YES"/>
+        <relationship name="seals" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SealData" inverseName="inspection" inverseEntity="SealData" syncable="YES"/>
+        <relationship name="tcu" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TCU" inverseName="inspection" inverseEntity="TCU" syncable="YES"/>
+        <relationship name="tires" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TireData" inverseName="inspection" inverseEntity="TireData" syncable="YES"/>
+        <relationship name="trailer" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Trailer" inverseName="inspection" inverseEntity="Trailer" syncable="YES"/>
+    </entity>
+    <entity name="InspectionDamageType" representedClassName="CdInspectionDamageType" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="inspectionTriStateData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InspectionTriStateData" inverseName="damagedTypes" inverseEntity="InspectionTriStateData" syncable="YES"/>
+    </entity>
+    <entity name="InspectionTriStateData" representedClassName="CdInspectionTriStateData" syncable="YES">
+        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="indicator" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="damagedImages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DamagedImage" inverseName="inpsectionTriStateData" inverseEntity="DamagedImage" syncable="YES"/>
+        <relationship name="damagedTypes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="InspectionDamageType" inverseName="inspectionTriStateData" inverseEntity="InspectionDamageType" syncable="YES"/>
+        <relationship name="inspection" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Inspection" inverseName="damagedTriStateDataSet" inverseEntity="Inspection" syncable="YES"/>
+    </entity>
+    <entity name="Light" representedClassName="CdLight" syncable="YES">
+        <attribute name="indicator" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numLights" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="damageData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InspectionTriStateData" syncable="YES"/>
+        <relationship name="inspection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Inspection" inverseName="damagedLightDataSet" inverseEntity="Inspection" syncable="YES"/>
+    </entity>
+    <entity name="SealData" representedClassName="CdSealData" syncable="YES">
+        <attribute name="sealNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sealType" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SealImage" inverseName="sealData" inverseEntity="SealImage" syncable="YES"/>
+        <relationship name="inspection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Inspection" inverseName="seals" inverseEntity="Inspection" syncable="YES"/>
+    </entity>
+    <entity name="SealImage" representedClassName="CdSealImage" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="identity" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="sealData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SealData" inverseName="images" inverseEntity="SealData" syncable="YES"/>
+    </entity>
+    <entity name="TCU" representedClassName="CdTCU" syncable="YES">
+        <attribute name="airChute" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="belts" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bulkHeads" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="currentTemperatureFahrenheit" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="eTrack" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fuelLevel" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="grill" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hoses" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="insepctionId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="isAntiFreezeLow" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isOilLow" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lowerDoors" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="setTemperatureFahrenheit" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="upperDoors" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="inspection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Inspection" inverseName="tcu" inverseEntity="Inspection" syncable="YES"/>
+    </entity>
+    <entity name="TireData" representedClassName="CdTireData" syncable="YES">
+        <attribute name="brand" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="depth" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="isRecap" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="otherBrand" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="psiHose" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="psiValue" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <relationship name="damageData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InspectionTriStateData" syncable="YES"/>
+        <relationship name="inspection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Inspection" inverseName="tires" inverseEntity="Inspection" syncable="YES"/>
+    </entity>
+    <entity name="Trailer" representedClassName="CdTrailer" syncable="YES">
+        <attribute name="heightInFeet" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="isAeroSkirtEquipped" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isGpsEquipped" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isLoaded" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isPsiEquipped" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lengthInFeet" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="licenseNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="licenseState" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="make" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="model" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="modelYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numberOfAxles" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="owner" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trailerNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trailerType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="vin" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="inspection" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Inspection" inverseName="trailer" inverseEntity="Inspection" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="DamagedImage" positionX="-135" positionY="323" width="126" height="88"/>
+        <element name="Inspection" positionX="-531" positionY="153" width="144" height="793"/>
+        <element name="InspectionDamageType" positionX="-191" positionY="161" width="128" height="73"/>
+        <element name="InspectionTriStateData" positionX="-351" positionY="153" width="128" height="118"/>
+        <element name="Light" positionX="-297" positionY="666" width="128" height="118"/>
+        <element name="SealData" positionX="-135" positionY="774" width="128" height="103"/>
+        <element name="SealImage" positionX="-128" positionY="495" width="128" height="88"/>
+        <element name="TCU" positionX="-711" positionY="153" width="128" height="268"/>
+        <element name="TireData" positionX="-326" positionY="414" width="128" height="163"/>
+        <element name="Trailer" positionX="-729" positionY="584" width="128" height="298"/>
+    </elements>
+</model>

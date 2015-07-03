@@ -1,0 +1,1019 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1935E1581AF8631E00D51527 /* TrailerInspectionReportTemplate.mustache in Resources */ = {isa = PBXBuildFile; fileRef = 1935E1571AF8631E00D51527 /* TrailerInspectionReportTemplate.mustache */; };
+		1943BAB51B0DB4BC00DC2A00 /* DamagedImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1943BAB41B0DB4BC00DC2A00 /* DamagedImageViewController.swift */; };
+		52545FA61B18689C0057FECC /* InspectionLiquidLevelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52545FA51B18689C0057FECC /* InspectionLiquidLevelCell.swift */; };
+		FD0D1AF51B0B9387000E1F9A /* libAmplitude.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD90DFAD1B0B838900C3AD8E /* libAmplitude.a */; };
+		FD35D8D91AFBD18B00C6D878 /* TrailerInspectionReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD35D8D81AFBD18B00C6D878 /* TrailerInspectionReportViewController.swift */; };
+		FD4757781ACDEC7E004982A8 /* TrailerInspectLeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4757771ACDEC7E004982A8 /* TrailerInspectLeftViewController.swift */; };
+		FD52D9BA1AC4619C00D88A5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD52D9B91AC4619C00D88A5B /* AppDelegate.swift */; };
+		FD52D9BD1AC4619C00D88A5B /* TrailerInspection.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FD52D9BB1AC4619C00D88A5B /* TrailerInspection.xcdatamodeld */; };
+		FD52D9C41AC4619C00D88A5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD52D9C21AC4619C00D88A5B /* Main.storyboard */; };
+		FD52D9C61AC4619C00D88A5B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD52D9C51AC4619C00D88A5B /* Images.xcassets */; };
+		FD52D9C91AC4619C00D88A5B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD52D9C71AC4619C00D88A5B /* LaunchScreen.xib */; };
+		FD52D9D51AC4619C00D88A5B /* TrailerInspectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD52D9D41AC4619C00D88A5B /* TrailerInspectionTests.swift */; };
+		FD5EC9371AF4040D007BCCA5 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5EC9351AF4040D007BCCA5 /* Fabric.framework */; };
+		FD5EC9381AF4040D007BCCA5 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5EC9361AF4040D007BCCA5 /* Crashlytics.framework */; };
+		FD6F79421AC9E31C00F5A7BA /* TrailerTwoColumnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6F79411AC9E31C00F5A7BA /* TrailerTwoColumnCell.swift */; };
+		FD6F79441ACAF10F00F5A7BA /* PopupCompanyPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6F79431ACAF10F00F5A7BA /* PopupCompanyPickerViewController.swift */; };
+		FD6F794A1ACB03E800F5A7BA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6F79491ACB03E800F5A7BA /* Constants.swift */; };
+		FD6F794F1ACC547800F5A7BA /* ServiceManagerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6F794E1ACC547800F5A7BA /* ServiceManagerFactory.swift */; };
+		FD7C0BAC1AF414AC00313805 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7C0BAB1AF414AC00313805 /* AnalyticsManager.swift */; };
+		FD7C0BAE1AF415F700313805 /* AnalyticsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7C0BAD1AF415F700313805 /* AnalyticsProtocols.swift */; };
+		FD7C0BB11AF417F500313805 /* CrashlyticsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7C0BB01AF417F500313805 /* CrashlyticsWrapper.swift */; };
+		FD7C0BB31AF4191700313805 /* AnalyticsManagerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7C0BB21AF4191700313805 /* AnalyticsManagerFactory.swift */; };
+		FD7C0BB61AF41CBF00313805 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7C0BB41AF41CBF00313805 /* Alamofire.swift */; };
+		FD7C0BB71AF41CBF00313805 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7C0BB51AF41CBF00313805 /* SwiftyJSON.swift */; };
+		FD7C0BB91AF7D37300313805 /* WernerLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7C0BB81AF7D37300313805 /* WernerLog.swift */; };
+		FD7C0BC81AF7E14F00313805 /* GoogleAnalyticsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7C0BC71AF7E14F00313805 /* GoogleAnalyticsWrapper.swift */; };
+		FD7D6B1D1AF7F1CC007B12D2 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD7D6B1C1AF7F1CC007B12D2 /* libGoogleAnalyticsServices.a */; };
+		FD7D6B1F1AF7F1E4007B12D2 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FD7D6B1E1AF7F1E4007B12D2 /* libsqlite3.dylib */; };
+		FD7D6B211AF7F1EE007B12D2 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FD7D6B201AF7F1EE007B12D2 /* libz.dylib */; };
+		FD7D6B251AF7F21E007B12D2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD7D6B241AF7F21E007B12D2 /* SystemConfiguration.framework */; };
+		FD7D6B261AF7F22E007B12D2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD7D6B221AF7F1F7007B12D2 /* CoreData.framework */; };
+		FD7D6B291AF80B1E007B12D2 /* AnalyticsManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7D6B281AF80B1E007B12D2 /* AnalyticsManagerTest.swift */; };
+		FD7D6B2C1AF81952007B12D2 /* libFlurry_6.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD7D6B2B1AF81952007B12D2 /* libFlurry_6.3.0.a */; };
+		FD7D6B2E1AF81967007B12D2 /* FlurryWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7D6B2D1AF81967007B12D2 /* FlurryWrapper.swift */; };
+		FD7D6B3B1AF92AD8007B12D2 /* AmplitudeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7D6B3A1AF92AD8007B12D2 /* AmplitudeWrapper.swift */; };
+		FD7E20A71ADEDF30003B95EC /* InspectionSealInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7E20A61ADEDF30003B95EC /* InspectionSealInfoCell.swift */; };
+		FD7E20A91ADEF980003B95EC /* TriStateBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7E20A81ADEF980003B95EC /* TriStateBool.swift */; };
+		FD7E20AB1ADF0324003B95EC /* InspectionDamageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7E20AA1ADF0324003B95EC /* InspectionDamageType.swift */; };
+		FD7E20AD1ADF1585003B95EC /* InspectionTriStateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7E20AC1ADF1585003B95EC /* InspectionTriStateData.swift */; };
+		FD7E20AF1AE010C8003B95EC /* TrailerInspectionNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7E20AE1AE010C8003B95EC /* TrailerInspectionNavController.swift */; };
+		FD7E20B11AE0115C003B95EC /* ScrollingViewControllerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7E20B01AE0115C003B95EC /* ScrollingViewControllerBase.swift */; };
+		FD9273E11B06473000B31536 /* LightType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9273E01B06473000B31536 /* LightType.swift */; };
+		FD9DE9761AD5DB4900C534E8 /* TrailerInspectRightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9DE9751AD5DB4900C534E8 /* TrailerInspectRightViewController.swift */; };
+		FD9DE9781AD5DBB600C534E8 /* TrailerInspectFrontViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9DE9771AD5DBB600C534E8 /* TrailerInspectFrontViewController.swift */; };
+		FDA412311AE595E70001B9E1 /* TrailerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA412301AE595E70001B9E1 /* TrailerType.swift */; };
+		FDA412331AE69A7B0001B9E1 /* PopupMonthYearPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA412321AE69A7B0001B9E1 /* PopupMonthYearPickerViewController.swift */; };
+		FDB2A2681AC9C4BB008F0EBA /* Inspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB2A2671AC9C4BB008F0EBA /* Inspection.swift */; };
+		FDB2A26C1AC9DD88008F0EBA /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB2A26B1AC9DD88008F0EBA /* ServiceManager.swift */; };
+		FDB2A2741AC9DDA4008F0EBA /* InspectionViewControllerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB2A26E1AC9DDA4008F0EBA /* InspectionViewControllerBase.swift */; };
+		FDB2A2751AC9DDA4008F0EBA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB2A26F1AC9DDA4008F0EBA /* LoginViewController.swift */; };
+		FDB2A2761AC9DDA4008F0EBA /* TrailerNumberAndIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB2A2701AC9DDA4008F0EBA /* TrailerNumberAndIndicatorCell.swift */; };
+		FDB2A2771AC9DDA4008F0EBA /* TrailerInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB2A2711AC9DDA4008F0EBA /* TrailerInfoViewController.swift */; };
+		FDB2A2781AC9DDA4008F0EBA /* TrailerSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB2A2721AC9DDA4008F0EBA /* TrailerSearchViewController.swift */; };
+		FDB2A2791AC9DDA4008F0EBA /* ViewControllerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB2A2731AC9DDA4008F0EBA /* ViewControllerBase.swift */; };
+		FDB2A27B1AC9DDC9008F0EBA /* ServiceManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB2A27A1AC9DDC9008F0EBA /* ServiceManagerTest.swift */; };
+		FDB40D681AD87B7000E5929D /* InspectionTireCellAlternate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB40D671AD87B7000E5929D /* InspectionTireCellAlternate.swift */; };
+		FDB40D6A1ADC451B00E5929D /* InspectionOtherDamageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB40D691ADC451B00E5929D /* InspectionOtherDamageCell.swift */; };
+		FDB5C5691B0B89A700D34BCB /* Mustache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD90DFB81B0B839100C3AD8E /* Mustache.framework */; };
+		FDB5C56A1B0B89A700D34BCB /* Mustache.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FD90DFB81B0B839100C3AD8E /* Mustache.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FDC19AF01AC47FEC00F862AE /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC19AEF1AC47FEC00F862AE /* AuthenticationService.swift */; };
+		FDD1928C1ACF34DF0094884E /* InspectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD1928B1ACF34DF0094884E /* InspectionTableViewController.swift */; };
+		FDD1928E1ACF4A750094884E /* InspectionTcuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD1928D1ACF4A750094884E /* InspectionTcuCell.swift */; };
+		FDD32B981AD2F3FE003A567F /* InspectionMonthYearCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD32B971AD2F3FE003A567F /* InspectionMonthYearCell.swift */; };
+		FDD32B9A1AD2F455003A567F /* InspectionDualStateDamageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD32B991AD2F455003A567F /* InspectionDualStateDamageCell.swift */; };
+		FDD32B9C1AD30DCC003A567F /* TrailerInspectRearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD32B9B1AD30DCC003A567F /* TrailerInspectRearViewController.swift */; };
+		FDD32B9E1AD32DA1003A567F /* InspectionMultiLightDamageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD32B9D1AD32DA1003A567F /* InspectionMultiLightDamageCell.swift */; };
+		FDD32BA11AD342B7003A567F /* InspectionSingleLightDamageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD32BA01AD342B7003A567F /* InspectionSingleLightDamageCell.swift */; };
+		FDD32BA31AD3502C003A567F /* InspectionDamageCellBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD32BA21AD3502C003A567F /* InspectionDamageCellBase.swift */; };
+		FDD32BA51AD430CD003A567F /* DynamicAnchorPopoverSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD32BA41AD430CD003A567F /* DynamicAnchorPopoverSegue.swift */; };
+		FDD32BA71AD43CA9003A567F /* PopupDamageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD32BA61AD43CA9003A567F /* PopupDamageDetailsViewController.swift */; };
+		FDD32BA91AD46439003A567F /* DamageDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD32BA81AD46439003A567F /* DamageDetailCell.swift */; };
+		FDD6BE361AC4C2530017AC7D /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD6BE351AC4C2530017AC7D /* Token.swift */; };
+		FDDA1C8D1AD838F300B9A27A /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDA1C8C1AD838F300B9A27A /* Company.swift */; };
+		FDF989691ADDAF7700F82E2A /* InspectionPsiValveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF989681ADDAF7700F82E2A /* InspectionPsiValveCell.swift */; };
+		FDFB9EE71AD2E4C0005C9744 /* InspectionTriStateDamageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFB9EE61AD2E4C0005C9744 /* InspectionTriStateDamageCell.swift */; };
+		FDFD69161AC9AD4C00EBE45B /* TrailerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFD69151AC9AD4C00EBE45B /* TrailerService.swift */; };
+		FDFD69181AC9B0A700EBE45B /* Trailer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFD69171AC9B0A700EBE45B /* Trailer.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FD52D9CF1AC4619C00D88A5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FD52D9AC1AC4619B00D88A5B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FD52D9B31AC4619B00D88A5B;
+			remoteInfo = TrailerInspection;
+		};
+		FD90DFAC1B0B838900C3AD8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FD90DFA71B0B838800C3AD8E /* Amplitude.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E98C05231A48E7FE00800C63;
+			remoteInfo = Amplitude;
+		};
+		FD90DFAE1B0B838900C3AD8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FD90DFA71B0B838800C3AD8E /* Amplitude.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E98C052E1A48E7FE00800C63;
+			remoteInfo = AmplitudeTests;
+		};
+		FD90DFB71B0B839100C3AD8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FD90DFB01B0B839100C3AD8E /* Mustache.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 563AE19719FBE47A0028C6C1;
+			remoteInfo = MustacheiOS;
+		};
+		FD90DFB91B0B839100C3AD8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FD90DFB01B0B839100C3AD8E /* Mustache.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 563AE1A219FBE47A0028C6C1;
+			remoteInfo = MustacheiOSTests;
+		};
+		FD90DFBB1B0B839100C3AD8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FD90DFB01B0B839100C3AD8E /* Mustache.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 561E725C1A8BDC2B004ED48B;
+			remoteInfo = MustacheOSX;
+		};
+		FD90DFBD1B0B839100C3AD8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FD90DFB01B0B839100C3AD8E /* Mustache.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 561E72661A8BDC2B004ED48B;
+			remoteInfo = MustacheOSXTests;
+		};
+		FDB5C56B1B0B89A700D34BCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FD90DFB01B0B839100C3AD8E /* Mustache.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 563AE19619FBE47A0028C6C1;
+			remoteInfo = MustacheiOS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FDB5C56D1B0B89A700D34BCB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FDB5C56A1B0B89A700D34BCB /* Mustache.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1935E1571AF8631E00D51527 /* TrailerInspectionReportTemplate.mustache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TrailerInspectionReportTemplate.mustache; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.html; };
+		1943BAB41B0DB4BC00DC2A00 /* DamagedImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DamagedImageViewController.swift; sourceTree = "<group>"; };
+		52545FA51B18689C0057FECC /* InspectionLiquidLevelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectionLiquidLevelCell.swift; sourceTree = "<group>"; };
+		FD35D8D81AFBD18B00C6D878 /* TrailerInspectionReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailerInspectionReportViewController.swift; sourceTree = "<group>"; };
+		FD4757771ACDEC7E004982A8 /* TrailerInspectLeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailerInspectLeftViewController.swift; sourceTree = "<group>"; };
+		FD52D9B41AC4619B00D88A5B /* TrailerInspection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrailerInspection.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD52D9B81AC4619C00D88A5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD52D9B91AC4619C00D88A5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FD52D9BC1AC4619C00D88A5B /* TrailerInspection.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TrailerInspection.xcdatamodel; sourceTree = "<group>"; };
+		FD52D9C31AC4619C00D88A5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FD52D9C51AC4619C00D88A5B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		FD52D9C81AC4619C00D88A5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		FD52D9CE1AC4619C00D88A5B /* TrailerInspectionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrailerInspectionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD52D9D31AC4619C00D88A5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD52D9D41AC4619C00D88A5B /* TrailerInspectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerInspectionTests.swift; sourceTree = "<group>"; };
+		FD5EC9351AF4040D007BCCA5 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		FD5EC9361AF4040D007BCCA5 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		FD6F79411AC9E31C00F5A7BA /* TrailerTwoColumnCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailerTwoColumnCell.swift; sourceTree = "<group>"; };
+		FD6F79431ACAF10F00F5A7BA /* PopupCompanyPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupCompanyPickerViewController.swift; sourceTree = "<group>"; };
+		FD6F79491ACB03E800F5A7BA /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Model/Constants.swift; sourceTree = "<group>"; };
+		FD6F794E1ACC547800F5A7BA /* ServiceManagerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceManagerFactory.swift; path = Service/ServiceManagerFactory.swift; sourceTree = "<group>"; };
+		FD7C0BAB1AF414AC00313805 /* AnalyticsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnalyticsManager.swift; path = Service/AnalyticsManager.swift; sourceTree = "<group>"; };
+		FD7C0BAD1AF415F700313805 /* AnalyticsProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnalyticsProtocols.swift; path = Service/AnalyticsProtocols.swift; sourceTree = "<group>"; };
+		FD7C0BB01AF417F500313805 /* CrashlyticsWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CrashlyticsWrapper.swift; path = Service/CrashlyticsWrapper.swift; sourceTree = "<group>"; };
+		FD7C0BB21AF4191700313805 /* AnalyticsManagerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnalyticsManagerFactory.swift; path = Service/AnalyticsManagerFactory.swift; sourceTree = "<group>"; };
+		FD7C0BB41AF41CBF00313805 /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Libraries/Alamofire.swift; sourceTree = "<group>"; };
+		FD7C0BB51AF41CBF00313805 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = Libraries/SwiftyJSON.swift; sourceTree = "<group>"; };
+		FD7C0BB81AF7D37300313805 /* WernerLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WernerLog.swift; path = Service/WernerLog.swift; sourceTree = "<group>"; };
+		FD7C0BBC1AF7E11400313805 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAI.h; path = Libraries/GoogleAnalytics/Library/GAI.h; sourceTree = "<group>"; };
+		FD7C0BC21AF7E11400313805 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAIFields.h; path = Libraries/GoogleAnalytics/Library/GAIFields.h; sourceTree = "<group>"; };
+		FD7C0BC31AF7E11400313805 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAILogger.h; path = Libraries/GoogleAnalytics/Library/GAILogger.h; sourceTree = "<group>"; };
+		FD7C0BC41AF7E11400313805 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITrackedViewController.h; path = Libraries/GoogleAnalytics/Library/GAITrackedViewController.h; sourceTree = "<group>"; };
+		FD7C0BC51AF7E11400313805 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITracker.h; path = Libraries/GoogleAnalytics/Library/GAITracker.h; sourceTree = "<group>"; };
+		FD7C0BC71AF7E14F00313805 /* GoogleAnalyticsWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoogleAnalyticsWrapper.swift; path = Service/GoogleAnalyticsWrapper.swift; sourceTree = "<group>"; };
+		FD7C0BCA1AF7E32F00313805 /* TrailerInspection-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TrailerInspection-Bridging-Header.h"; sourceTree = "<group>"; };
+		FD7D6B171AF7EF3F007B12D2 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAIDictionaryBuilder.h; path = Libraries/GoogleAnalytics/Library/GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		FD7D6B191AF7EF3F007B12D2 /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceProduct.h; path = Libraries/GoogleAnalytics/Library/GAIEcommerceProduct.h; sourceTree = "<group>"; };
+		FD7D6B1A1AF7EF3F007B12D2 /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceProductAction.h; path = Libraries/GoogleAnalytics/Library/GAIEcommerceProductAction.h; sourceTree = "<group>"; };
+		FD7D6B1B1AF7EF3F007B12D2 /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAIEcommercePromotion.h; path = Libraries/GoogleAnalytics/Library/GAIEcommercePromotion.h; sourceTree = "<group>"; };
+		FD7D6B1C1AF7F1CC007B12D2 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		FD7D6B1E1AF7F1E4007B12D2 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		FD7D6B201AF7F1EE007B12D2 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		FD7D6B221AF7F1F7007B12D2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		FD7D6B241AF7F21E007B12D2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		FD7D6B281AF80B1E007B12D2 /* AnalyticsManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnalyticsManagerTest.swift; path = Service/AnalyticsManagerTest.swift; sourceTree = "<group>"; };
+		FD7D6B2A1AF81910007B12D2 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Flurry.h; path = Libraries/Flurry.h; sourceTree = "<group>"; };
+		FD7D6B2B1AF81952007B12D2 /* libFlurry_6.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_6.3.0.a; sourceTree = "<group>"; };
+		FD7D6B2D1AF81967007B12D2 /* FlurryWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlurryWrapper.swift; path = Service/FlurryWrapper.swift; sourceTree = "<group>"; };
+		FD7D6B3A1AF92AD8007B12D2 /* AmplitudeWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AmplitudeWrapper.swift; path = Service/AmplitudeWrapper.swift; sourceTree = "<group>"; };
+		FD7E20A61ADEDF30003B95EC /* InspectionSealInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectionSealInfoCell.swift; sourceTree = "<group>"; };
+		FD7E20A81ADEF980003B95EC /* TriStateBool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TriStateBool.swift; path = Model/TriStateBool.swift; sourceTree = "<group>"; };
+		FD7E20AA1ADF0324003B95EC /* InspectionDamageType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InspectionDamageType.swift; path = Model/InspectionDamageType.swift; sourceTree = "<group>"; };
+		FD7E20AC1ADF1585003B95EC /* InspectionTriStateData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InspectionTriStateData.swift; path = Model/InspectionTriStateData.swift; sourceTree = "<group>"; };
+		FD7E20AE1AE010C8003B95EC /* TrailerInspectionNavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailerInspectionNavController.swift; sourceTree = "<group>"; };
+		FD7E20B01AE0115C003B95EC /* ScrollingViewControllerBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollingViewControllerBase.swift; sourceTree = "<group>"; };
+		FD90DFA71B0B838800C3AD8E /* Amplitude.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Amplitude.xcodeproj; path = "Amplitude-iOS/Amplitude.xcodeproj"; sourceTree = "<group>"; };
+		FD90DFB01B0B839100C3AD8E /* Mustache.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Mustache.xcodeproj; path = GRMustache/Mustache.xcodeproj; sourceTree = "<group>"; };
+		FD9273E01B06473000B31536 /* LightType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LightType.swift; path = Model/LightType.swift; sourceTree = "<group>"; };
+		FD9DE9751AD5DB4900C534E8 /* TrailerInspectRightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailerInspectRightViewController.swift; sourceTree = "<group>"; };
+		FD9DE9771AD5DBB600C534E8 /* TrailerInspectFrontViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailerInspectFrontViewController.swift; sourceTree = "<group>"; };
+		FDA412301AE595E70001B9E1 /* TrailerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrailerType.swift; path = Model/TrailerType.swift; sourceTree = "<group>"; };
+		FDA412321AE69A7B0001B9E1 /* PopupMonthYearPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupMonthYearPickerViewController.swift; sourceTree = "<group>"; };
+		FDB2A2671AC9C4BB008F0EBA /* Inspection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Inspection.swift; path = Model/Inspection.swift; sourceTree = "<group>"; };
+		FDB2A26B1AC9DD88008F0EBA /* ServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceManager.swift; path = Service/ServiceManager.swift; sourceTree = "<group>"; };
+		FDB2A26E1AC9DDA4008F0EBA /* InspectionViewControllerBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectionViewControllerBase.swift; sourceTree = "<group>"; };
+		FDB2A26F1AC9DDA4008F0EBA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		FDB2A2701AC9DDA4008F0EBA /* TrailerNumberAndIndicatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailerNumberAndIndicatorCell.swift; sourceTree = "<group>"; };
+		FDB2A2711AC9DDA4008F0EBA /* TrailerInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailerInfoViewController.swift; sourceTree = "<group>"; };
+		FDB2A2721AC9DDA4008F0EBA /* TrailerSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailerSearchViewController.swift; sourceTree = "<group>"; };
+		FDB2A2731AC9DDA4008F0EBA /* ViewControllerBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerBase.swift; sourceTree = "<group>"; };
+		FDB2A27A1AC9DDC9008F0EBA /* ServiceManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceManagerTest.swift; path = Service/ServiceManagerTest.swift; sourceTree = "<group>"; };
+		FDB40D671AD87B7000E5929D /* InspectionTireCellAlternate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InspectionTireCellAlternate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FDB40D691ADC451B00E5929D /* InspectionOtherDamageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InspectionOtherDamageCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FDC19AEF1AC47FEC00F862AE /* AuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthenticationService.swift; path = Service/AuthenticationService.swift; sourceTree = "<group>"; };
+		FDD1928B1ACF34DF0094884E /* InspectionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectionTableViewController.swift; sourceTree = "<group>"; };
+		FDD1928D1ACF4A750094884E /* InspectionTcuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectionTcuCell.swift; sourceTree = "<group>"; };
+		FDD32B971AD2F3FE003A567F /* InspectionMonthYearCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectionMonthYearCell.swift; sourceTree = "<group>"; };
+		FDD32B991AD2F455003A567F /* InspectionDualStateDamageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InspectionDualStateDamageCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FDD32B9B1AD30DCC003A567F /* TrailerInspectRearViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailerInspectRearViewController.swift; sourceTree = "<group>"; };
+		FDD32B9D1AD32DA1003A567F /* InspectionMultiLightDamageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InspectionMultiLightDamageCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FDD32BA01AD342B7003A567F /* InspectionSingleLightDamageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InspectionSingleLightDamageCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FDD32BA21AD3502C003A567F /* InspectionDamageCellBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectionDamageCellBase.swift; sourceTree = "<group>"; };
+		FDD32BA41AD430CD003A567F /* DynamicAnchorPopoverSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicAnchorPopoverSegue.swift; sourceTree = "<group>"; };
+		FDD32BA61AD43CA9003A567F /* PopupDamageDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupDamageDetailsViewController.swift; sourceTree = "<group>"; };
+		FDD32BA81AD46439003A567F /* DamageDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DamageDetailCell.swift; sourceTree = "<group>"; };
+		FDD6BE351AC4C2530017AC7D /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Token.swift; path = Model/Token.swift; sourceTree = "<group>"; };
+		FDDA1C8C1AD838F300B9A27A /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Company.swift; path = Model/Company.swift; sourceTree = "<group>"; };
+		FDF989681ADDAF7700F82E2A /* InspectionPsiValveCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectionPsiValveCell.swift; sourceTree = "<group>"; };
+		FDFB9EE61AD2E4C0005C9744 /* InspectionTriStateDamageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InspectionTriStateDamageCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FDFD69151AC9AD4C00EBE45B /* TrailerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrailerService.swift; path = Service/TrailerService.swift; sourceTree = "<group>"; };
+		FDFD69171AC9B0A700EBE45B /* Trailer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Trailer.swift; path = Model/Trailer.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FD52D9B11AC4619B00D88A5B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD7D6B261AF7F22E007B12D2 /* CoreData.framework in Frameworks */,
+				FD7D6B251AF7F21E007B12D2 /* SystemConfiguration.framework in Frameworks */,
+				FDB5C5691B0B89A700D34BCB /* Mustache.framework in Frameworks */,
+				FD5EC9381AF4040D007BCCA5 /* Crashlytics.framework in Frameworks */,
+				FD5EC9371AF4040D007BCCA5 /* Fabric.framework in Frameworks */,
+				FD0D1AF51B0B9387000E1F9A /* libAmplitude.a in Frameworks */,
+				FD7D6B2C1AF81952007B12D2 /* libFlurry_6.3.0.a in Frameworks */,
+				FD7D6B1D1AF7F1CC007B12D2 /* libGoogleAnalyticsServices.a in Frameworks */,
+				FD7D6B1F1AF7F1E4007B12D2 /* libsqlite3.dylib in Frameworks */,
+				FD7D6B211AF7F1EE007B12D2 /* libz.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD52D9CB1AC4619C00D88A5B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8858F90CC2EAAB0E0912E7CC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FD90DFA71B0B838800C3AD8E /* Amplitude.xcodeproj */,
+				FD90DFB01B0B839100C3AD8E /* Mustache.xcodeproj */,
+				FD7D6B2B1AF81952007B12D2 /* libFlurry_6.3.0.a */,
+				FD7D6B241AF7F21E007B12D2 /* SystemConfiguration.framework */,
+				FD7D6B221AF7F1F7007B12D2 /* CoreData.framework */,
+				FD7D6B201AF7F1EE007B12D2 /* libz.dylib */,
+				FD7D6B1E1AF7F1E4007B12D2 /* libsqlite3.dylib */,
+				FD7D6B1C1AF7F1CC007B12D2 /* libGoogleAnalyticsServices.a */,
+				FD5EC9351AF4040D007BCCA5 /* Fabric.framework */,
+				FD5EC9361AF4040D007BCCA5 /* Crashlytics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FD52D9AB1AC4619B00D88A5B = {
+			isa = PBXGroup;
+			children = (
+				FD52D9B61AC4619B00D88A5B /* TrailerInspection */,
+				FD52D9D11AC4619C00D88A5B /* TrailerInspectionTests */,
+				FD52D9B51AC4619B00D88A5B /* Products */,
+				8858F90CC2EAAB0E0912E7CC /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		FD52D9B51AC4619B00D88A5B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FD52D9B41AC4619B00D88A5B /* TrailerInspection.app */,
+				FD52D9CE1AC4619C00D88A5B /* TrailerInspectionTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FD52D9B61AC4619B00D88A5B /* TrailerInspection */ = {
+			isa = PBXGroup;
+			children = (
+				FDBD851E1AEFE40C00409667 /* Libraries */,
+				FDC19AED1AC47F4A00F862AE /* Service */,
+				FD52D9E51AC46A5B00D88A5B /* Model */,
+				FDB2A26D1AC9DDA4008F0EBA /* View */,
+				FD52D9B91AC4619C00D88A5B /* AppDelegate.swift */,
+				FD7C0BCA1AF7E32F00313805 /* TrailerInspection-Bridging-Header.h */,
+				FD52D9C21AC4619C00D88A5B /* Main.storyboard */,
+				FD52D9C51AC4619C00D88A5B /* Images.xcassets */,
+				FD52D9C71AC4619C00D88A5B /* LaunchScreen.xib */,
+				FD52D9BB1AC4619C00D88A5B /* TrailerInspection.xcdatamodeld */,
+				FD52D9B71AC4619C00D88A5B /* Supporting Files */,
+			);
+			path = TrailerInspection;
+			sourceTree = "<group>";
+		};
+		FD52D9B71AC4619C00D88A5B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1935E1571AF8631E00D51527 /* TrailerInspectionReportTemplate.mustache */,
+				FD52D9B81AC4619C00D88A5B /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FD52D9D11AC4619C00D88A5B /* TrailerInspectionTests */ = {
+			isa = PBXGroup;
+			children = (
+				FDFD69271AC9BAE200EBE45B /* Service */,
+				FD52D9D41AC4619C00D88A5B /* TrailerInspectionTests.swift */,
+				FD52D9D21AC4619C00D88A5B /* Supporting Files */,
+			);
+			path = TrailerInspectionTests;
+			sourceTree = "<group>";
+		};
+		FD52D9D21AC4619C00D88A5B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FD52D9D31AC4619C00D88A5B /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FD52D9E51AC46A5B00D88A5B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FDDA1C8C1AD838F300B9A27A /* Company.swift */,
+				FD6F79491ACB03E800F5A7BA /* Constants.swift */,
+				FDB2A2671AC9C4BB008F0EBA /* Inspection.swift */,
+				FD7E20AA1ADF0324003B95EC /* InspectionDamageType.swift */,
+				FD7E20AC1ADF1585003B95EC /* InspectionTriStateData.swift */,
+				FD9273E01B06473000B31536 /* LightType.swift */,
+				FDD6BE351AC4C2530017AC7D /* Token.swift */,
+				FDFD69171AC9B0A700EBE45B /* Trailer.swift */,
+				FDA412301AE595E70001B9E1 /* TrailerType.swift */,
+				FD7E20A81ADEF980003B95EC /* TriStateBool.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		FD6F794D1ACC4EEE00F5A7BA /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				FDB2A2731AC9DDA4008F0EBA /* ViewControllerBase.swift */,
+				FD7E20B01AE0115C003B95EC /* ScrollingViewControllerBase.swift */,
+				FDB2A26E1AC9DDA4008F0EBA /* InspectionViewControllerBase.swift */,
+				FDD32BA21AD3502C003A567F /* InspectionDamageCellBase.swift */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
+		FD7C0BAF1AF4160000313805 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				FD7C0BB21AF4191700313805 /* AnalyticsManagerFactory.swift */,
+				FD7C0BAB1AF414AC00313805 /* AnalyticsManager.swift */,
+				FD7C0BAD1AF415F700313805 /* AnalyticsProtocols.swift */,
+				FD7C0BB01AF417F500313805 /* CrashlyticsWrapper.swift */,
+				FD7C0BC71AF7E14F00313805 /* GoogleAnalyticsWrapper.swift */,
+				FD7D6B2D1AF81967007B12D2 /* FlurryWrapper.swift */,
+				FD7D6B3A1AF92AD8007B12D2 /* AmplitudeWrapper.swift */,
+			);
+			name = Analytics;
+			sourceTree = "<group>";
+		};
+		FD7C0BC61AF7E11C00313805 /* Google Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				FD7C0BBC1AF7E11400313805 /* GAI.h */,
+				FD7D6B171AF7EF3F007B12D2 /* GAIDictionaryBuilder.h */,
+				FD7D6B191AF7EF3F007B12D2 /* GAIEcommerceProduct.h */,
+				FD7D6B1A1AF7EF3F007B12D2 /* GAIEcommerceProductAction.h */,
+				FD7D6B1B1AF7EF3F007B12D2 /* GAIEcommercePromotion.h */,
+				FD7C0BC21AF7E11400313805 /* GAIFields.h */,
+				FD7C0BC31AF7E11400313805 /* GAILogger.h */,
+				FD7C0BC41AF7E11400313805 /* GAITrackedViewController.h */,
+				FD7C0BC51AF7E11400313805 /* GAITracker.h */,
+			);
+			name = "Google Analytics";
+			sourceTree = "<group>";
+		};
+		FD7D6B271AF80AFD007B12D2 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				FD7D6B281AF80B1E007B12D2 /* AnalyticsManagerTest.swift */,
+			);
+			name = Analytics;
+			sourceTree = "<group>";
+		};
+		FD90DFA81B0B838800C3AD8E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FD90DFAD1B0B838900C3AD8E /* libAmplitude.a */,
+				FD90DFAF1B0B838900C3AD8E /* AmplitudeTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FD90DFB11B0B839100C3AD8E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FD90DFB81B0B839100C3AD8E /* Mustache.framework */,
+				FD90DFBA1B0B839100C3AD8E /* MustacheiOSTests.xctest */,
+				FD90DFBC1B0B839100C3AD8E /* Mustache.framework */,
+				FD90DFBE1B0B839100C3AD8E /* MustacheOSXTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FDB2A26D1AC9DDA4008F0EBA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FD6F794D1ACC4EEE00F5A7BA /* Base */,
+				FDD1928A1ACF333C0094884E /* Reusable */,
+				FDD32BA41AD430CD003A567F /* DynamicAnchorPopoverSegue.swift */,
+				FD7E20AE1AE010C8003B95EC /* TrailerInspectionNavController.swift */,
+				FDB2A26F1AC9DDA4008F0EBA /* LoginViewController.swift */,
+				FDB2A2721AC9DDA4008F0EBA /* TrailerSearchViewController.swift */,
+				FDB2A2711AC9DDA4008F0EBA /* TrailerInfoViewController.swift */,
+				FD4757771ACDEC7E004982A8 /* TrailerInspectLeftViewController.swift */,
+				FDD32B9B1AD30DCC003A567F /* TrailerInspectRearViewController.swift */,
+				FD9DE9751AD5DB4900C534E8 /* TrailerInspectRightViewController.swift */,
+				FD9DE9771AD5DBB600C534E8 /* TrailerInspectFrontViewController.swift */,
+				FD35D8D81AFBD18B00C6D878 /* TrailerInspectionReportViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FDBD851E1AEFE40C00409667 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				FD7C0BC61AF7E11C00313805 /* Google Analytics */,
+				FD7C0BB41AF41CBF00313805 /* Alamofire.swift */,
+				FD7D6B2A1AF81910007B12D2 /* Flurry.h */,
+				FD7C0BB51AF41CBF00313805 /* SwiftyJSON.swift */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		FDC19AED1AC47F4A00F862AE /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				FD7C0BAF1AF4160000313805 /* Analytics */,
+				FD6F794E1ACC547800F5A7BA /* ServiceManagerFactory.swift */,
+				FDB2A26B1AC9DD88008F0EBA /* ServiceManager.swift */,
+				FDC19AEF1AC47FEC00F862AE /* AuthenticationService.swift */,
+				FDFD69151AC9AD4C00EBE45B /* TrailerService.swift */,
+				FD7C0BB81AF7D37300313805 /* WernerLog.swift */,
+			);
+			name = Service;
+			sourceTree = "<group>";
+		};
+		FDD1928A1ACF333C0094884E /* Reusable */ = {
+			isa = PBXGroup;
+			children = (
+				FD6F79431ACAF10F00F5A7BA /* PopupCompanyPickerViewController.swift */,
+				FDB2A2701AC9DDA4008F0EBA /* TrailerNumberAndIndicatorCell.swift */,
+				FD6F79411AC9E31C00F5A7BA /* TrailerTwoColumnCell.swift */,
+				FDD1928B1ACF34DF0094884E /* InspectionTableViewController.swift */,
+				FDD1928D1ACF4A750094884E /* InspectionTcuCell.swift */,
+				FDFB9EE61AD2E4C0005C9744 /* InspectionTriStateDamageCell.swift */,
+				FDD32B991AD2F455003A567F /* InspectionDualStateDamageCell.swift */,
+				FDD32B971AD2F3FE003A567F /* InspectionMonthYearCell.swift */,
+				FDD32B9D1AD32DA1003A567F /* InspectionMultiLightDamageCell.swift */,
+				FDD32BA01AD342B7003A567F /* InspectionSingleLightDamageCell.swift */,
+				FDB40D671AD87B7000E5929D /* InspectionTireCellAlternate.swift */,
+				FDF989681ADDAF7700F82E2A /* InspectionPsiValveCell.swift */,
+				52545FA51B18689C0057FECC /* InspectionLiquidLevelCell.swift */,
+				FD7E20A61ADEDF30003B95EC /* InspectionSealInfoCell.swift */,
+				FDB40D691ADC451B00E5929D /* InspectionOtherDamageCell.swift */,
+				FDD32BA61AD43CA9003A567F /* PopupDamageDetailsViewController.swift */,
+				FDD32BA81AD46439003A567F /* DamageDetailCell.swift */,
+				FDA412321AE69A7B0001B9E1 /* PopupMonthYearPickerViewController.swift */,
+				1943BAB41B0DB4BC00DC2A00 /* DamagedImageViewController.swift */,
+			);
+			name = Reusable;
+			sourceTree = "<group>";
+		};
+		FDFD69271AC9BAE200EBE45B /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				FD7D6B271AF80AFD007B12D2 /* Analytics */,
+				FDB2A27A1AC9DDC9008F0EBA /* ServiceManagerTest.swift */,
+			);
+			name = Service;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FD52D9B31AC4619B00D88A5B /* TrailerInspection */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FD52D9D81AC4619C00D88A5B /* Build configuration list for PBXNativeTarget "TrailerInspection" */;
+			buildPhases = (
+				FD52D9B01AC4619B00D88A5B /* Sources */,
+				FD52D9B11AC4619B00D88A5B /* Frameworks */,
+				FD52D9B21AC4619B00D88A5B /* Resources */,
+				FD5EC9341AF4038E007BCCA5 /* ShellScript */,
+				FDB5C56D1B0B89A700D34BCB /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FDB5C56C1B0B89A700D34BCB /* PBXTargetDependency */,
+			);
+			name = TrailerInspection;
+			productName = TrailerInspection;
+			productReference = FD52D9B41AC4619B00D88A5B /* TrailerInspection.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FD52D9CD1AC4619C00D88A5B /* TrailerInspectionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FD52D9DB1AC4619C00D88A5B /* Build configuration list for PBXNativeTarget "TrailerInspectionTests" */;
+			buildPhases = (
+				FD52D9CA1AC4619C00D88A5B /* Sources */,
+				FD52D9CB1AC4619C00D88A5B /* Frameworks */,
+				FD52D9CC1AC4619C00D88A5B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FD52D9D01AC4619C00D88A5B /* PBXTargetDependency */,
+			);
+			name = TrailerInspectionTests;
+			productName = TrailerInspectionTests;
+			productReference = FD52D9CE1AC4619C00D88A5B /* TrailerInspectionTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FD52D9AC1AC4619B00D88A5B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = "Werner Enterprises, Inc";
+				TargetAttributes = {
+					FD52D9B31AC4619B00D88A5B = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					FD52D9CD1AC4619C00D88A5B = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = FD52D9B31AC4619B00D88A5B;
+					};
+				};
+			};
+			buildConfigurationList = FD52D9AF1AC4619B00D88A5B /* Build configuration list for PBXProject "TrailerInspection" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FD52D9AB1AC4619B00D88A5B;
+			productRefGroup = FD52D9B51AC4619B00D88A5B /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = FD90DFA81B0B838800C3AD8E /* Products */;
+					ProjectRef = FD90DFA71B0B838800C3AD8E /* Amplitude.xcodeproj */;
+				},
+				{
+					ProductGroup = FD90DFB11B0B839100C3AD8E /* Products */;
+					ProjectRef = FD90DFB01B0B839100C3AD8E /* Mustache.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				FD52D9B31AC4619B00D88A5B /* TrailerInspection */,
+				FD52D9CD1AC4619C00D88A5B /* TrailerInspectionTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		FD90DFAD1B0B838900C3AD8E /* libAmplitude.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAmplitude.a;
+			remoteRef = FD90DFAC1B0B838900C3AD8E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FD90DFAF1B0B838900C3AD8E /* AmplitudeTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AmplitudeTests.xctest;
+			remoteRef = FD90DFAE1B0B838900C3AD8E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FD90DFB81B0B839100C3AD8E /* Mustache.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Mustache.framework;
+			remoteRef = FD90DFB71B0B839100C3AD8E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FD90DFBA1B0B839100C3AD8E /* MustacheiOSTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MustacheiOSTests.xctest;
+			remoteRef = FD90DFB91B0B839100C3AD8E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FD90DFBC1B0B839100C3AD8E /* Mustache.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Mustache.framework;
+			remoteRef = FD90DFBB1B0B839100C3AD8E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FD90DFBE1B0B839100C3AD8E /* MustacheOSXTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MustacheOSXTests.xctest;
+			remoteRef = FD90DFBD1B0B839100C3AD8E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FD52D9B21AC4619B00D88A5B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD52D9C41AC4619C00D88A5B /* Main.storyboard in Resources */,
+				FD52D9C91AC4619C00D88A5B /* LaunchScreen.xib in Resources */,
+				1935E1581AF8631E00D51527 /* TrailerInspectionReportTemplate.mustache in Resources */,
+				FD52D9C61AC4619C00D88A5B /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD52D9CC1AC4619C00D88A5B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FD5EC9341AF4038E007BCCA5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 7f9d5ffc115e9b6e059a16aec87f3fe1e51f503d 229b3ab9b376340e6da8eac22f03b9ad2580d1d48bbdcab4aea59eedad42c87e";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FD52D9B01AC4619B00D88A5B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDD32B9C1AD30DCC003A567F /* TrailerInspectRearViewController.swift in Sources */,
+				FDA412311AE595E70001B9E1 /* TrailerType.swift in Sources */,
+				FDB2A2771AC9DDA4008F0EBA /* TrailerInfoViewController.swift in Sources */,
+				FDD1928C1ACF34DF0094884E /* InspectionTableViewController.swift in Sources */,
+				FDD32B9E1AD32DA1003A567F /* InspectionMultiLightDamageCell.swift in Sources */,
+				FD6F794A1ACB03E800F5A7BA /* Constants.swift in Sources */,
+				FD52D9BA1AC4619C00D88A5B /* AppDelegate.swift in Sources */,
+				FDB2A26C1AC9DD88008F0EBA /* ServiceManager.swift in Sources */,
+				FD35D8D91AFBD18B00C6D878 /* TrailerInspectionReportViewController.swift in Sources */,
+				FDD32BA11AD342B7003A567F /* InspectionSingleLightDamageCell.swift in Sources */,
+				FD9DE9761AD5DB4900C534E8 /* TrailerInspectRightViewController.swift in Sources */,
+				FDB40D681AD87B7000E5929D /* InspectionTireCellAlternate.swift in Sources */,
+				FD7C0BB11AF417F500313805 /* CrashlyticsWrapper.swift in Sources */,
+				FD7E20AD1ADF1585003B95EC /* InspectionTriStateData.swift in Sources */,
+				FD7E20AB1ADF0324003B95EC /* InspectionDamageType.swift in Sources */,
+				FDA412331AE69A7B0001B9E1 /* PopupMonthYearPickerViewController.swift in Sources */,
+				FD4757781ACDEC7E004982A8 /* TrailerInspectLeftViewController.swift in Sources */,
+				FD6F794F1ACC547800F5A7BA /* ServiceManagerFactory.swift in Sources */,
+				FDB2A2791AC9DDA4008F0EBA /* ViewControllerBase.swift in Sources */,
+				FDFB9EE71AD2E4C0005C9744 /* InspectionTriStateDamageCell.swift in Sources */,
+				FD7D6B2E1AF81967007B12D2 /* FlurryWrapper.swift in Sources */,
+				FDF989691ADDAF7700F82E2A /* InspectionPsiValveCell.swift in Sources */,
+				1943BAB51B0DB4BC00DC2A00 /* DamagedImageViewController.swift in Sources */,
+				FDD32BA51AD430CD003A567F /* DynamicAnchorPopoverSegue.swift in Sources */,
+				FDB40D6A1ADC451B00E5929D /* InspectionOtherDamageCell.swift in Sources */,
+				FDD32BA71AD43CA9003A567F /* PopupDamageDetailsViewController.swift in Sources */,
+				FD7E20A71ADEDF30003B95EC /* InspectionSealInfoCell.swift in Sources */,
+				FD9273E11B06473000B31536 /* LightType.swift in Sources */,
+				FD7E20B11AE0115C003B95EC /* ScrollingViewControllerBase.swift in Sources */,
+				FDFD69181AC9B0A700EBE45B /* Trailer.swift in Sources */,
+				FDB2A2681AC9C4BB008F0EBA /* Inspection.swift in Sources */,
+				FD7D6B3B1AF92AD8007B12D2 /* AmplitudeWrapper.swift in Sources */,
+				FD7E20A91ADEF980003B95EC /* TriStateBool.swift in Sources */,
+				FDD32B981AD2F3FE003A567F /* InspectionMonthYearCell.swift in Sources */,
+				FD52D9BD1AC4619C00D88A5B /* TrailerInspection.xcdatamodeld in Sources */,
+				FDC19AF01AC47FEC00F862AE /* AuthenticationService.swift in Sources */,
+				FDB2A2741AC9DDA4008F0EBA /* InspectionViewControllerBase.swift in Sources */,
+				FD9DE9781AD5DBB600C534E8 /* TrailerInspectFrontViewController.swift in Sources */,
+				FDFD69161AC9AD4C00EBE45B /* TrailerService.swift in Sources */,
+				FDD32B9A1AD2F455003A567F /* InspectionDualStateDamageCell.swift in Sources */,
+				FD7C0BB91AF7D37300313805 /* WernerLog.swift in Sources */,
+				FD6F79421AC9E31C00F5A7BA /* TrailerTwoColumnCell.swift in Sources */,
+				FD7C0BB61AF41CBF00313805 /* Alamofire.swift in Sources */,
+				FD6F79441ACAF10F00F5A7BA /* PopupCompanyPickerViewController.swift in Sources */,
+				FD7C0BB31AF4191700313805 /* AnalyticsManagerFactory.swift in Sources */,
+				FDB2A2751AC9DDA4008F0EBA /* LoginViewController.swift in Sources */,
+				FD7C0BC81AF7E14F00313805 /* GoogleAnalyticsWrapper.swift in Sources */,
+				FDD6BE361AC4C2530017AC7D /* Token.swift in Sources */,
+				FDD1928E1ACF4A750094884E /* InspectionTcuCell.swift in Sources */,
+				FDDA1C8D1AD838F300B9A27A /* Company.swift in Sources */,
+				FDB2A2761AC9DDA4008F0EBA /* TrailerNumberAndIndicatorCell.swift in Sources */,
+				FDB2A2781AC9DDA4008F0EBA /* TrailerSearchViewController.swift in Sources */,
+				FD7C0BAC1AF414AC00313805 /* AnalyticsManager.swift in Sources */,
+				FD7E20AF1AE010C8003B95EC /* TrailerInspectionNavController.swift in Sources */,
+				FD7C0BAE1AF415F700313805 /* AnalyticsProtocols.swift in Sources */,
+				FD7C0BB71AF41CBF00313805 /* SwiftyJSON.swift in Sources */,
+				52545FA61B18689C0057FECC /* InspectionLiquidLevelCell.swift in Sources */,
+				FDD32BA91AD46439003A567F /* DamageDetailCell.swift in Sources */,
+				FDD32BA31AD3502C003A567F /* InspectionDamageCellBase.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD52D9CA1AC4619C00D88A5B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD52D9D51AC4619C00D88A5B /* TrailerInspectionTests.swift in Sources */,
+				FDB2A27B1AC9DDC9008F0EBA /* ServiceManagerTest.swift in Sources */,
+				FD7D6B291AF80B1E007B12D2 /* AnalyticsManagerTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FD52D9D01AC4619C00D88A5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FD52D9B31AC4619B00D88A5B /* TrailerInspection */;
+			targetProxy = FD52D9CF1AC4619C00D88A5B /* PBXContainerItemProxy */;
+		};
+		FDB5C56C1B0B89A700D34BCB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MustacheiOS;
+			targetProxy = FDB5C56B1B0B89A700D34BCB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FD52D9C21AC4619C00D88A5B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FD52D9C31AC4619C00D88A5B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FD52D9C71AC4619C00D88A5B /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FD52D9C81AC4619C00D88A5B /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FD52D9D61AC4619C00D88A5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-DDEBUG";
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FD52D9D91AC4619C00D88A5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(BUILT_PRODUCTS_DIR)",
+				);
+				INFOPLIST_FILE = TrailerInspection/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(BUILT_PRODUCTS_DIR)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TrailerInspection/TrailerInspection-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FD52D9DC1AC4619C00D88A5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TrailerInspectionTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrailerInspection.app/TrailerInspection";
+			};
+			name = Debug;
+		};
+		FDBD85231AEFE47900409667 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-DDEBUG";
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FDBD85241AEFE47900409667 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(BUILT_PRODUCTS_DIR)",
+				);
+				INFOPLIST_FILE = TrailerInspection/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(BUILT_PRODUCTS_DIR)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TrailerInspection/TrailerInspection-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FDBD85251AEFE47900409667 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = TrailerInspectionTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrailerInspection.app/TrailerInspection";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FD52D9AF1AC4619B00D88A5B /* Build configuration list for PBXProject "TrailerInspection" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD52D9D61AC4619C00D88A5B /* Debug */,
+				FDBD85231AEFE47900409667 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FD52D9D81AC4619C00D88A5B /* Build configuration list for PBXNativeTarget "TrailerInspection" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD52D9D91AC4619C00D88A5B /* Debug */,
+				FDBD85241AEFE47900409667 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FD52D9DB1AC4619C00D88A5B /* Build configuration list for PBXNativeTarget "TrailerInspectionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD52D9DC1AC4619C00D88A5B /* Debug */,
+				FDBD85251AEFE47900409667 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FD52D9BB1AC4619C00D88A5B /* TrailerInspection.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FD52D9BC1AC4619C00D88A5B /* TrailerInspection.xcdatamodel */,
+			);
+			currentVersion = FD52D9BC1AC4619C00D88A5B /* TrailerInspection.xcdatamodel */;
+			path = TrailerInspection.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = FD52D9AC1AC4619B00D88A5B /* Project object */;
+}

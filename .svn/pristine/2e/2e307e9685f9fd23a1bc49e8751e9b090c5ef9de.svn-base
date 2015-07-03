@@ -1,0 +1,134 @@
+//
+//  TrailerInspectRearViewController.swift
+//  TrailerInspection
+//
+//  Created by Robert Grimm on 2015-04-06.
+//  Copyright (c) 2015 Werner Enterprises, Inc. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+class TrailerInspectRearViewController : InspectionViewControllerBase {
+    
+    // Placing these here to avoid a compiler SegFault
+    typealias InspectionSection = InspectionTableViewController.CellStateSection
+    typealias TcuCell = InspectionTcuCell.CellState
+    typealias TriStateCell = InspectionTriStateDamageCell.CellState
+    typealias MonthYearCell = InspectionMonthYearCell.CellState
+    typealias DualStateCell = InspectionDualStateDamageCell.CellState
+    typealias MultiLightCell = InspectionMultiLightDamageCell.CellState
+    typealias SingleLightCell = InspectionSingleLightDamageCell.CellState
+    typealias TireCell = InspectionTireCellAlternate.CellState
+    typealias PsiValveCell = InspectionPsiValveCell.CellState
+    typealias SealCell = InspectionSealInfoCell.CellState
+    typealias OtherCell = InspectionOtherDamageCell.CellState
+    
+    override func viewDidAppear(animated : Bool) {
+        super.viewDidAppear(animated)
+        
+        appDelegate.analyticsManager.screenDidAppear("InspectRear")
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        appDelegate.analyticsManager.screenWillDisappear("InspectRear")
+    }
+    
+}
+
+extension TrailerInspectRearViewController : InspectionFormDataSource {
+    
+    func getInspectionItems() -> [InspectionTableViewController.CellStateBase] {
+        
+        var inspectionItems : [InspectionTableViewController.CellStateBase] = []
+        
+        // MARK: - Main inspection
+        // TODO(rgrimm): Localize the labels
+        inspectionItems.append(InspectionSection(label: "Inspection"))
+        
+        inspectionItems.append(DualStateCell(label: "Placard Holder", changeHandler: { (changeType, sender) -> Void in
+            self.inspection.rearPlacardHolder = changeType
+        }))
+        inspectionItems.append(DualStateCell(label: "License Plate", changeHandler: { (changeType, sender) -> Void in
+            self.inspection.rearLicensePlate = changeType
+        }))
+        inspectionItems.append(DualStateCell(label: "License Plate Light", changeHandler: { (changeType, sender) -> Void in
+            self.inspection.rearLicensePlateLight = changeType
+        }))
+        
+        inspectionItems.append(MultiLightCell(label: "Red Marker Lights", changeHandler: TrailerInspectLeftViewController.buildMultiLightHandler(target: &inspection.rearRedMarkerLights)))
+        inspectionItems.append(MultiLightCell(label: "Tail Lights", changeHandler: TrailerInspectLeftViewController.buildMultiLightHandler(target: &inspection.tailLights)))
+        
+        inspectionItems.append(DualStateCell(label: "Mud Flaps", changeHandler: { (changeType, sender) -> Void in
+            self.inspection.rearMudFlaps = changeType
+        }))
+        
+        if inspection.isLoaded! {
+            inspectionItems.append(InspectionSection(label: "Seal Inspection"))
+            
+            func buildSealHandler(sealIndex : Int) -> ((InspectionSealInfoCell.ChangeType, InspectionSealInfoCell) -> Void) {
+                return { (changeType, sender) -> Void in
+                    switch changeType {
+                    case let .SealNumber(sealNumber):
+                        self.inspection.seals[sealIndex].sealNumber = sealNumber
+                    case let .SealType(sealType):
+                        self.inspection.seals[sealIndex].sealType = sealType
+                    }
+                }
+            }
+            
+            inspectionItems.append(SealCell(mandatory: true, changeHandler: buildSealHandler(0)))
+            
+            for i in 1...3 {
+                inspectionItems.append(SealCell(changeHandler: buildSealHandler(i)))
+            }
+            
+        } else {
+            inspectionItems.append(InspectionSection(label: "Inside Trailer Inspection"))
+            inspectionItems.append(DualStateCell(label: "Inside Floor", changeHandler: { (changeType, sender) -> Void in
+                self.inspection.insideFloor = changeType
+            }))
+            inspectionItems.append(DualStateCell(label: "Inside Walls", changeHandler: { (changeType, sender) -> Void in
+                self.inspection.insideWalls = changeType
+            }))
+            inspectionItems.append(DualStateCell(label: "Inside Roof", changeHandler: { (changeType, sender) -> Void in
+                self.inspection.insideRoof = changeType
+            }))
+            
+            if trailer.isGpsEquipped {
+                inspectionItems.append(DualStateCell(label: "Cargo Sensor", changeHandler: { (changeType, sender) -> Void in
+                    self.inspection.gpsCargoSensor = changeType
+                }))
+            }
+
+            if  trailer.trailerType == .TCU  {
+                // Bulk heads aren't necessarily related to TCU, but will only be there when on a TCU trailer
+                inspectionItems.append(DualStateCell(label: "Bulk Head(s)", changeHandler: { (changeType, sender) -> Void in
+                    self.inspection.tcuInfo.bulkHeads = changeType
+                }))
+
+                inspectionItems.append(InspectionSection(label: "TCU"))
+                
+                inspectionItems.append(DualStateCell(label: "Air Chute", changeHandler: { (changeType, sender) -> Void in
+                    self.inspection.tcuInfo.airChute = changeType
+                }))
+                
+                inspectionItems.append(TriStateCell(label: "E-Track", changeHandler: { (changeType, sender) -> Void in
+                    self.inspection.tcuInfo.eTrack = changeType
+                }))
+            }
+            
+        }
+        
+        inspectionItems.append(InspectionSection(label: "Additional Damage"))
+        
+        inspectionItems.append(OtherCell(label: "Additional Damage", changeHandler: { (changeType, sender) -> Void in
+            self.inspection.rearOther = changeType
+        }))
+        
+        return inspectionItems
+    }
+    
+}

@@ -1,0 +1,163 @@
+//
+//  InspectionSealInfoCell.swift
+//  TrailerInspection
+//
+//  Created by Robert Grimm on 2015-04-15.
+//  Copyright (c) 2015 Werner Enterprises, Inc. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+public class InspectionSealInfoCell : UITableViewCell {
+    
+    // MARK: InspectionSealInfoCell.CellState
+    public class CellState : InspectionTableViewController.CellStateBase {
+        
+        public override init() {}
+        
+        public convenience init(mandatory : Bool = false, changeHandler : ((changeType : ChangeType, sender : InspectionSealInfoCell) -> Void)?) {
+            self.init()
+            
+            self.mandatory = mandatory
+            
+            self.handler = changeHandler
+        }
+        
+        var mandatory = false
+        
+        var sealNumber : String?
+        var sealType : Company?
+        
+        var handler : ((ChangeType, InspectionSealInfoCell) -> Void)?
+        
+        public override func validate() -> Bool {
+            if mandatory {
+                if sealNumber == nil || sealNumber!.isEmpty {
+                    return false
+                }
+                
+                if sealType == nil {
+                    return false
+                }
+            } else {
+                if sealNumber != nil && !sealNumber!.isEmpty && sealType == nil {
+                    return false
+                }
+            }
+            
+            return true
+        }
+        
+        public override func rebuildTableCellForInspectionTable(inspectionTable: InspectionTableViewController, forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+            
+            let cell = inspectionTable.tableView.dequeueReusableCellWithIdentifier("SealInfoCell", forIndexPath: indexPath) as! InspectionSealInfoCell
+            
+            cell.inspectionTableController = inspectionTable
+            cell.state = self
+            
+            cell.sealNumberTextField.text = sealNumber
+            
+            return cell
+        }
+        
+    }
+    
+    public enum ChangeType {
+        case SealNumber(sealNumber : String)
+        case SealType(sealType : Company)
+    }
+    
+    // MARK: InspectionSealInfoCell members
+    @IBOutlet weak var sealNumberTextField: UITextField! {
+        didSet {
+            sealNumberTextField.delegate = self
+        }
+    }
+    @IBOutlet weak var sealTypeButton : UIButton!
+    
+    weak var inspectionTableController : InspectionTableViewController!
+    weak var state : CellState!
+    
+    @IBAction func sealTypeDidTap() {
+        inspectionTableController.popoverAnchor = sealTypeButton
+        inspectionTableController.popoverSegueDelegate = self
+        inspectionTableController.performSegueWithIdentifier("SelectCompanySegue", sender: self)
+    }
+}
+
+// MARK: - UITextFieldDelegate extension
+extension InspectionSealInfoCell : UITextFieldDelegate {
+    
+    public func textFieldDidEndEditing(textField: UITextField) {
+        state.sealNumber = textField.text
+        state.handler?(.SealNumber(sealNumber: textField.text), self)
+    }
+    
+    public func textFieldShouldReturn(textField: UITextField) -> Bool {
+        switch textField {
+        case sealNumberTextField:
+            textField.resignFirstResponder()
+        default:
+            return false
+        }
+        
+        return true
+    }
+    
+}
+
+// MARK: - InspectionFormValidationDelegate extension
+extension InspectionSealInfoCell : InspectionFormValidationDelegate {
+    
+    public func getValidationPassingState() -> Bool {
+        return state.validate()
+    }
+    
+    public func getValidationFailureViews() -> [UIView] {
+        var failureViews : [UIView] = []
+        
+        if state.mandatory {
+            if sealNumberTextField.text == nil || sealNumberTextField.text.isEmpty {
+                failureViews.append(sealNumberTextField)
+            }
+            
+            if state.sealType == nil {
+                failureViews.append(sealTypeButton)
+            }
+        } else {
+            if sealNumberTextField.text != nil && !sealNumberTextField.text.isEmpty && state.sealType == nil {
+                failureViews.append(sealTypeButton)
+            }
+        }
+        
+        return failureViews
+    }
+    
+}
+
+// MARK: - InspectionSegueDelegate extension
+extension InspectionSealInfoCell : InspectionSegueDelegate {
+    
+    public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if let destination = segue.destinationViewController as? PopupCompanyPickerViewController {
+            destination.companyType = .SealType
+            destination.selectedCompany = state.sealType
+        }
+        
+    }
+    
+    public func prepareForUnwindSegue(segue: UIStoryboardSegue) {
+        if segue.identifier == "CompanySaveUnwindSegue",
+            let source = segue.sourceViewController as? PopupCompanyPickerViewController {
+                state.sealType = source.selectedCompany
+                sealTypeButton.setTitle(state.sealType?.name, forState: .Normal)
+
+                if let company = source.selectedCompany {
+                    state.handler?(.SealType(sealType: company), self)
+                }
+        }
+    }
+    
+}

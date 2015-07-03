@@ -1,0 +1,64 @@
+//
+//  CdInspection.swift
+//  TrailerInspection
+//
+//  Created by Jerry Jiang on 12/6/15.
+//  Copyright (c) 2015 Werner Enterprises, Inc. All rights reserved.
+//
+
+import Foundation
+import CoreData
+@objc(CdInspection)
+class CdInspection: NSManagedObject {
+
+    @NSManaged var carrier: String
+    @NSManaged var documentNumber: String
+    @NSManaged var dotInspectionExpiration: NSDate
+    @NSManaged var frontBillBox: String
+    @NSManaged var frontGladHands: String
+    @NSManaged var frontOther: String
+    @NSManaged var frontPermitBox: String
+    @NSManaged var frontPlacardHolder: String
+    @NSManaged var frontVinPlate: String
+    @NSManaged var gpsCargoSensor: String
+    @NSManaged var insideFloor: String
+    @NSManaged var insideRoof: String
+    @NSManaged var insideWalls: String
+    @NSManaged var isLoaded: Bool
+    @NSManaged var leftABSLights: String
+    @NSManaged var leftAeroSkirt: String
+    @NSManaged var leftDollyHandle: String
+    @NSManaged var leftOther: String
+    @NSManaged var leftPlacardHolder: String
+    @NSManaged var leftRedMarkerLights: String
+    @NSManaged var leftSliderHoseSpring: String
+    @NSManaged var leftYellowMarkerLights: String
+    @NSManaged var psiLight: String
+    @NSManaged var psiValveWasClosed: NSNumber
+    @NSManaged var rearLicensePlate: String
+    @NSManaged var rearLicensePlateLight: String
+    @NSManaged var rearMudFlaps: String
+    @NSManaged var rearOther: String
+    @NSManaged var rearPlacardHolder: String
+    @NSManaged var rearRedMarkerLights: String
+    @NSManaged var rightAeroSkirt: String
+    @NSManaged var rightArrowTurningLights: String
+    @NSManaged var rightOther: String
+    @NSManaged var rightPlacardHolder: String
+    @NSManaged var rightRedMarkerLights: String
+    @NSManaged var rightYellowMarkerLights: String
+    @NSManaged var roof: String
+    @NSManaged var tailLights: String
+    @NSManaged var tireType: String
+    @NSManaged var transfer: String
+    @NSManaged var tripNumber: String
+    @NSManaged var truckNumber: String
+    @NSManaged var usBroker: String
+    @NSManaged var vin: String
+    @NSManaged var tcu: CdTCU
+    @NSManaged var trailer: CdTrailer
+    @NSManaged var damagedTriStateDataSet: NSMutableSet
+    
+    @NSManaged var tires: NSMutableSet
+    @NSManaged var seals: NSMutableSet
+}

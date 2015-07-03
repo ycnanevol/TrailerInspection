@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Equipment Inspection</title>
+	<style>
+		html, body, div, span, applet, object, iframe,
+		h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+		a, abbr, acronym, address, big, cite, code,
+		del, dfn, em, img, ins, kbd, q, s, samp,
+		small, strike, strong, tt, var,
+		b, u, i, center, dl, dt, dd, ol, ul, li,
+		fieldset, form, label, legend,
+		table, caption, tbody, tfoot, thead, tr, th, td,
+		article, aside, canvas, details, embed, 
+		figure, figcaption, footer, header, hgroup, 
+		menu, nav, output, ruby, section, summary,
+		time, mark, audio, video { border: 0; font: inherit; margin: 0; padding: 0; vertical-align: baseline; }
+		blockquote, q { quotes: none; }
+		blockquote:before, blockquote:after,
+		q:before, q:after { content: ''; content: none; }
+	
+		body{ font: 7pt/12pt "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+		h2{ font-size: 175%; font-weight: bold; }
+		small{ font-weight: normal; font-size: 75% }
+
+		table{ border-collapse: collapse; width: 100%; }
+		.head{ text-align: center; text-transform: uppercase; font-size: 125%; }
+		th{ font-weight: bold; }
+		th, td{ text-align: left; padding: 0; }
+		.break{ border-top: 2.5pt solid #000; }
+		.border-right{ border-right: 1pt solid #000; }
+		.border-bottom{ border-bottom: 1pt solid #000; }
+		.border-left{ border-left: 1pt solid #000; }
+		.pad-left{ padding-left: 5pt; }
+		
+		.left{ float: left; }
+		.right{ float: right; }
+		.center{ display: block; margin-left: auto; margin-right: auto; }
+		.text-left{ text-align: left; }
+		.text-right{ text-align: right; }
+		.text-center{ text-align: center; }
+		.text-justify{ text-align: justify; }
+		.tertiary{ padding-left: 15pt; }
+		
+		hr{ margin: 20pt 0 0; border-color: #000; }
+		i{ font-style: italic; }
+		b{ font-weight: bold; }
+    
+        .werner-log {
+            width:100px;
+            height:25px;
+            background-size:100px 25px;
+            background-image: url('data:image/jpg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAABQAAD/4QN0aHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjMtYzAxMSA2Ni4xNDU2NjEsIDIwMTIvMDIvMDYtMTQ6NTY6MjcgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcFJpZ2h0cz0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3JpZ2h0cy8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBSaWdodHM6TWFya2VkPSJGYWxzZSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDowNUE3MUJGRUU1MTExMUU0OEE0QjlCODhGRDYzRTM4OSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowNUE3MUJGREU1MTExMUU0OEE0QjlCODhGRDYzRTM4OSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1MzIE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ1dWlkOkQwNjk1QzNENTUwNkUzMTFCNkQ2OTVDM0NCMUE0NEQ1IiBzdFJlZjpkb2N1bWVudElEPSJ1dWlkOkNGNjk1QzNENTUwNkUzMTFCNkQ2OTVDM0NCMUE0NEQ1Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+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');
+        }
+	</style>
+</head>
+<body>
+
+<header>
+	<table style="margin-top:40px;">
+		<tbody>
+			<tr>
+				<td>
+					<div class="werner-log"></div>
+                    <!-- <img src="logo.jpg" width="100px" /> Using this will be 2-3 seconds faster than using base64 image object. -->
+				</td>
+				<td>
+					<h2 class="text-right">Equipment Inspection <small>{{report.currentDateTimeString}}</small></h2>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</header>
+<section>
+	<table class="break" id="index-trailer">
+		<tbody>
+			<tr>
+				<td width="16.66667%">Trailer</td>
+				<th width="16.66667%">{{trailer.trailerNumber}}</th>
+				<td width="16.66667%"></td>
+				<th width="16.66667%"></th>
+				<td width="16.66667%" class="text-right">Truck</td>
+				<th width="16.66667%" class="text-center">{{truckNumber}}</th>
+			</tr>
+			<tr>
+				<td>License</td>
+				<th>{{trailer.licenseNumber}}</th>
+				<td>State</td>
+				<th>{{trailer.licenseState}}</th>
+				<td class="text-right">Carrier</td>
+				<th class="text-center">{{report.carrierName}}</th>
+			</tr>
+			<tr>
+				<td>Make</td>
+				<th>{{trailer.make}}</th>
+				<td>Type</td>
+				<th>{{report.trailerType}}</th>
+                <td class="text-right">{{report.transferCompanyLabel}}{{report.usBrokerLabel}}</td>
+				<th class="text-center">{{report.transferCompanyName}}{{report.usBrokerName}}</th>
+			</tr>
+			<tr>
+				<td>VIN</td>
+				<th>{{trailer.vin}}</th>
+				<td></td>
+				<th></th>
+				<td class="text-right">Trip Number</td>
+				<th class="text-center">{{report.tripNumber}}</th>
+			</tr>
+		</tbody>
+	</table>
+	<table class="break" id="index-seals-tcu">
+		<tbody>
+			<tr>
+				<th width="12%">Seals</th>
+                <td width="22%"><table><tr><td width="50%" class="text-right">{{report.Seal1Name}}</td><th width="50%" class="pad-left">{{report.Seal1Number}}</th></tr></table></td>
+				<td width="22%"><table><tr><td width="50%" class="text-right">{{report.Seal2Name}}</td><th width="50%" class="pad-left">{{report.Seal2Number}}</th></tr></table></td>
+				<td width="22%"><table><tr><td width="50%" class="text-right">{{report.Seal3Name}}</td><th width="50%" class="pad-left">{{report.Seal3Number}}</th></tr></table></td>
+				<td width="22%"><table><tr><td width="50%" class="text-right">{{report.Seal4Name}}</td><th width="50%" class="pad-left">{{report.Seal4Number}}</th></tr></table></td>
+			</tr>
+			<tr class="break">
+				<th>TCU</th>
+                <td><table><tr><td width="50%" class="text-left">Set Temp</td><th width="50%" class="pad-left">{{report.setTemperatureFahrenheit}}</th></tr></table></td>
+                <td><table><tr><td width="50%" class="text-left">Current</td><th width="50%" class="pad-left">{{report.currentTemperatureFahrenheit}}</th></tr></table></td>
+                <td><table><tr><td width="50%" class="text-left">Fuel</td><th width="50%" class="pad-left">{{report.fuelLevel}}</th></tr></table></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="break" id="index-inspection-1">
+		<thead>
+			<tr>
+				<th class="head border-bottom" width="50%">Left</th>
+				<th class="head border-bottom border-left" width="50%">Right</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="border-bottom">
+					<table id="index-tires-left">
+						<thead>
+							<tr>
+								<th width="16.66667%"></th>
+								<th width="16.66667%">Brand</th>
+								<th width="16.66667%">Wheel</th>
+								<th width="16.66667%">Tire</th>
+								<th width="16.66667%">Tread</th>
+								<th width="16.66667%">PSI</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th><b>1</b> <small>LFO</small></th>
+                                <td>{{report.Tire1Brand}}</td>
+								<td>{{report.Tire1Wheel}}</td>
+								<td>{{report.Tire1isRecap}}</td>
+								<td>{{report.Tire1Depth}}</td>
+								<td>{{report.Tire1PSI}}</td>
+							</tr>
+							<tr>
+								<th><b>2</b> <small>LFI</small></th>
+                                <td>{{report.Tire2Brand}}</td>
+                                <td>{{report.Tire2Wheel}}</td>
+                                <td>{{report.Tire2isRecap}}</td>
+                                <td>{{report.Tire2Depth}}</td>
+                                <td>{{report.Tire2PSI}}</td>
+							</tr>
+							<tr>
+								<th><b>5</b> <small>LRO</small></th>
+                                <td>{{report.Tire5Brand}}</td>
+                                <td>{{report.Tire5Wheel}}</td>
+                                <td>{{report.Tire5isRecap}}</td>
+                                <td>{{report.Tire5Depth}}</td>
+                                <td>{{report.Tire5PSI}}</td>
+							</tr>
+							<tr>
+								<th><b>6</b> <small>LRI</small></th>
+                                <td>{{report.Tire6Brand}}</td>
+                                <td>{{report.Tire6Wheel}}</td>
+                                <td>{{report.Tire6isRecap}}</td>
+                                <td>{{report.Tire6Depth}}</td>
+                                <td>{{report.Tire6PSI}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+				<td class="border-bottom border-left pad-left">
+					<table id="index-tires-right">
+						<thead>
+							<tr>
+								<th width="16.66667%"></th>
+								<th width="16.66667%">Brand</th>
+								<th width="16.66667%">Wheel</th>
+								<th width="16.66667%">Tire</th>
+								<th width="16.66667%">Tread</th>
+								<th width="16.66667%">PSI</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th><b>3</b> <small>RFI</small></th>
+                                <td>{{report.Tire3Brand}}</td>
+                                <td>{{report.Tire3Wheel}}</td>
+                                <td>{{report.Tire3isRecap}}</td>
+                                <td>{{report.Tire3Depth}}</td>
+                                <td>{{report.Tire3PSI}}</td>
+							</tr>
+							<tr>
+								<th><b>4</b> <small>RFO</small></th>
+                                <td>{{report.Tire4Brand}}</td>
+                                <td>{{report.Tire4Wheel}}</td>
+                                <td>{{report.Tire4isRecap}}</td>
+                                <td>{{report.Tire4Depth}}</td>
+                                <td>{{report.Tire4PSI}}</td>
+							</tr>
+							<tr>
+								<th><b>7</b> <small>RRI</small></th>
+                                <td>{{report.Tire7Brand}}</td>
+                                <td>{{report.Tire7Wheel}}</td>
+                                <td>{{report.Tire7isRecap}}</td>
+                                <td>{{report.Tire7Depth}}</td>
+                                <td>{{report.Tire7PSI}}</td>
+							</tr>
+							<tr>
+								<th><b>8</b> <small>RRO</small></th>
+                                <td>{{report.Tire8Brand}}</td>
+                                <td>{{report.Tire8Wheel}}</td>
+                                <td>{{report.Tire8isRecap}}</td>
+                                <td>{{report.Tire8Depth}}</td>
+                                <td>{{report.Tire8PSI}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table class="border-bottom" id="index-left-details">
+						<tbody>
+							<tr>
+								<td width="50%">PSI Light</td>
+								<td class="border-left pad-left" width="50%">{{report.psiLight}}</td>
+							</tr>
+							<tr>
+								<td>DOT Inspection Expiration</td>
+								<td class="border-left pad-left">{{report.dotInspectionExpirationFormattedString}}</td>
+							</tr>
+							<tr>
+								<td>Dolly Handle</td>
+								<td class="border-left pad-left">{{report.leftDollyHandle}}</td>
+							</tr>
+							<tr>
+								<td>Placard Holder</td>
+								<td class="border-left pad-left">{{report.leftPlacardHolder}}</td>
+							</tr>
+							<tr>
+								<td>Aero Skirt</td>
+								<td class="border-left pad-left">{{report.leftAeroSkirt}}</td>
+							</tr>
+							<tr>
+								<td>Slider Hose Spring</td>
+								<td class="border-left pad-left">{{report.leftSliderHoseSpring}}</td>
+                                <!-- This also works!
+                                {{#report.leftSliderHoseSpring_has_picture}}
+                                    <td><div class="right image-camera">&nbsp;</div></td>
+                                {{/report.leftSliderHoseSpring_has_picture}} -->
+                            </tr>
+							<tr>
+								<td>Yellow Marker Lights</td>
+                                <td class="border-left pad-left">{{report.leftYellowLights}}</td>
+							</tr>
+							<tr>
+								<td>Red Marker Light</td>
+                                <td class="border-left pad-left">{{report.leftRedMarkerLights}}</td>
+							</tr>
+							<tr>
+								<td>ABS Light</td>
+                                <td class="border-left pad-left">{{report.leftABSLights}}</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</td>
+				<td class="border-left">
+					<table class="border-bottom" id="index-right-details">
+						<tbody>
+							<tr>
+								<td class="pad-left" width="50%">Placard Holder</td>
+                                <td class="border-left pad-left" width="50%">{{report.rightPlacardHolder}}</td>
+							</tr>
+							<tr>
+								<td class="pad-left">Aero Skirt</td>
+								<td class="border-left pad-left">{{report.rightAeroSkirt}}</td>
+							</tr>
+							<tr>
+								<td class="pad-left">Yellow Marker Lights</td>
+                                <td class="border-left pad-left">{{report.rightYellowMarkerLights}}</td>
+							</tr>
+							<tr>
+								<td class="pad-left">Red Marker Light</td>
+                                <td class="border-left pad-left">{{report.rightRedMarkerLights}}</td>
+							</tr>
+							<tr>
+								<td class="pad-left">Arrow Turning Lights</td>
+                                <td class="border-left pad-left">{{report.rightArrowTurningLights}}</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="border-bottom" id="index-roof">
+						<tbody>
+							<tr>
+								<th class="pad-left" width="50%">Roof</th>
+                                <td class="border-left pad-left" width="50%">{{report.roof}} </td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+            <tr>
+                <td class="border-right" style="height:50px">
+                </td>
+            </tr>
+		</tbody>
+	</table>
+	<table class="break" id="index-inspection-2">
+		<thead>
+			<tr>
+				<th class="head border-bottom" width="50%">Rear</th>
+				<th class="head border-bottom border-left" width="50%">Front</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					<table class="border-bottom" id="index-rear-details">
+						<tbody>
+							<tr>
+								<td width="50%">Placard Holder</td>
+                                <td width="50%" class="border-left pad-left">{{report.rearPlacardHolder}}</td>
+							</tr>
+							<tr>
+								<td>License Plate</td>
+                                <td class="border-left pad-left">{{report.rearLicensePlate}}</td>
+							</tr>
+							<tr>
+								<td>License Plate Light</td>
+								<td class="border-left pad-left">{{report.rearLicensePlateLight}}</td>
+							</tr>
+							<tr>
+								<td>Red Marker Lights</td>
+                                <td class="border-left pad-left">{{report.rearRedMarkerLights}}</td>
+							</tr>
+							<tr>
+								<td>Tail Lights</td>
+                                <td class="border-left pad-left">{{report.tailLights}}</td>
+							</tr>
+							<tr>
+								<td>Mud Flaps</td>
+                                <td class="border-left pad-left">{{report.rearMudFlaps}}</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="border-bottom" id="index-inside">
+						<tbody>
+							<tr>
+								<th width="50%">Inside Floor/Walls/Roof</th>
+                                <td class="border-left pad-left" width="50%">
+                                    {{#report.isLoaded}}{{report.isLoaded}}{{/report.isLoaded}}
+                                    {{^report.isLoaded}}{{report.insideFloor}}  {{report.insideWalls}}  {{report.insideRoof}}{{/report.isLoaded}}
+                                </td>
+							</tr>
+						</tbody>
+					</table>
+
+				</td>
+				
+				<td class="border-left">
+					<table class="border-bottom" id="index-right-details">
+						<tbody>
+							<tr>
+								<td class="pad-left" width="50%">Placard Holder</td>
+								<td class="border-left pad-left" width="50%">{{report.frontPlacardHolder}}</td>
+							</tr>
+							<tr>
+								<td class="pad-left">VIN Plate</td>
+								<td class="border-left pad-left">{{report.frontVinPlate}}</td>
+							</tr>
+                    
+                            <tr>
+                                <td class="pad-left">Glad Hands</td>
+                                <td class="border-left pad-left">{{report.frontGladHands}}</td>
+                            </tr>
+                            <tr>
+                                <td class="pad-left">Bill Box</td>
+                                <td class="border-left pad-left">{{report.frontBillBox}}</td>
+                            </tr>
+                            <tr>
+                                <td class="pad-left">Permit Box</td>
+                                <td class="border-left pad-left">{{report.frontPermitBox}}</td>
+                            </tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+            <tr>
+                <td class="border-right" style="height:60px">
+                </td>
+            </tr>
+		</tbody>
+	</table>
+</section>
+<footer>
+	<table id="signatures">
+		<tbody>
+			<tr>
+				<td colspan="2" class="break">
+					<p><i>I hereby declare my presence during the inspection of the above mentioned equipment and acknowledge its stated condition in this report to be true and correct.</i></p>
+				</td>
+			</tr>
+			<tr>
+				<td width="63%">
+					<hr />
+					Signature of accepting BROKER representative
+					<span class="right">(please print)</span>
+				</td>
+				<td class="pad-left">
+					<hr />
+					Date/Time
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<hr />
+					Signature of accepting CRUCE representative
+					<span class="right">(please print)</span>
+				</td>
+				<td class="pad-left">
+					<hr />
+					Date/Time
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<hr />
+					Signature of accepting CARRIER representative
+					<span class="right">(please print)</span>
+				</td>
+				<td class="pad-left">
+					<hr />
+					Date/Time
+				</td>
+			</tr>
+            <tr height="20px"></tr>
+			<tr>
+				<td colspan="2" class="break">
+
+					<p><i>I hereby certify that on the above date, I carefully inspected the equipment described above and that this is a true and correct report of the result of such inspection.</i></p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+                    <span class="right" style="padding-top: 6pt;">{{report.inspectorFullName}}</span>
+					<hr />
+					Signature of accepting WERNER ENTERPRISES representative
+					<span class="right">(please print)</span>
+				</td>
+                <td class="pad-left">
+                    <span class="left" style="padding-top: 6pt;">{{report.currentDateTimeString}}</span>
+                    <hr />
+					Date/Time
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</footer>
+
+</body>
+</html>

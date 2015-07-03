@@ -1,0 +1,331 @@
+//
+//  TrailerInspectionReportViewController.swift
+//  TrailerInspection
+//
+//  Created by Jerry Jiang on 7/5/15.
+//  Copyright (c) 2015 Werner Enterprises, Inc. All rights reserved.
+//
+
+import Foundation
+import UIKit
+import Mustache
+
+class TrailerInspectionReportViewController : InspectionViewControllerBase {
+    
+    @IBOutlet weak var printSummaryButton : UIBarButtonItem!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var reportWebView : UIWebView!
+    
+    weak var printController : UIPrintInteractionController!
+    
+    // MARK: - Presentation stack
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        printController = .sharedPrintController()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        generateReportAsync { (reportHTML, baseURL, printAllowed) -> Void in
+            self.reportWebView.loadHTMLString(reportHTML, baseURL: baseURL)
+            self.reportWebView.hidden = false
+            self.printSummaryButton.enabled = printAllowed
+            
+            self.printSummary(self.printSummaryButton)
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        appDelegate.analyticsManager.screenDidAppear("PrintPreview")
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        appDelegate.analyticsManager.screenWillDisappear("PrintPreview")
+    }
+    
+    override func nextPage() {
+        navigationController?.popViewControllerAnimated(true)
+    }
+    
+    // MARK: - Printing methods
+    func generateReportAsync(completionHandler : (reportHTML : String, baseURL : NSURL?, printAllowed : Bool) -> Void) {
+        activityIndicator.startAnimating()
+        
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+            
+            // TODO(rgrimm): Add analytics to measure how long it actually takes to generate a report
+            
+            var reportHtml = ""
+            
+            var templateError : NSError?
+            var renderError : NSError?
+            
+            if let template = Template(named: "TrailerInspectionReportTemplate", error: &templateError) where templateError == nil,
+                let report = template.render(BoxAnyObject(self.translateInspection(self.inspection)), error: &renderError) where renderError == nil,
+                let templateFilePath = NSURL.fileURLWithPath(NSBundle.mainBundle().bundlePath) {
+                    
+                    dispatch_async(dispatch_get_main_queue()) {
+                        completionHandler(reportHTML: report, baseURL: templateFilePath, printAllowed: true)
+                        self.activityIndicator.stopAnimating()
+                    }
+
+            } else {
+                
+                // TODO(rgrimm): Use NSLocalizedString for the error messages
+                var errorMessage : String
+                
+                // TODO(rgrimm): Provide a button on the same screen to allow the user to regenerate the page
+                
+                if templateError != nil {
+                    // TODO(rgrimm): Add failure information to the event failure
+                    self.appDelegate.analyticsManager.eventDidHappen("PrintTemplateError")
+                    errorMessage = "The template engine is not initialized successfully. Please go back and try again."
+                } else if renderError != nil {
+                    self.appDelegate.analyticsManager.eventDidHappen("PrintRenderError")
+                    errorMessage = "The report in not generated successfully. Please go back and try again."
+                } else {
+                    self.appDelegate.analyticsManager.eventDidHappen("PrintOtherError")
+                    errorMessage = "The report is not generated successfully.";
+                }
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    completionHandler(reportHTML: errorMessage, baseURL: nil, printAllowed: false)
+                    self.activityIndicator.stopAnimating()
+                }
+            }
+        
+        }
+    }
+        
+    @IBAction func printSummary(sender: UIBarButtonItem) {
+        
+        if let printInfo = UIPrintInfo(dictionary:nil) {
+            printInfo.outputType = .General
+            printInfo.jobName = "Trailer Inspection Report"
+        
+            printController.printInfo = printInfo
+        }
+        
+        printController.printFormatter = reportWebView.viewPrintFormatter()
+        
+        var completionHandler : UIPrintInteractionCompletionHandler = { (interactionController, successful, error) -> Void in
+            if successful {
+                self.appDelegate.analyticsManager.eventDidHappen("PrintSuccessful")
+                self.nextPage()
+                return ()
+            }
+            
+            // TODO(rgrimm): Add failure information to the event
+            self.appDelegate.analyticsManager.eventDidHappen("PrintFailed")
+            
+            // TODO(rgrimm): Handle error cases; eg, with messaging?
+        }
+        
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+            printController.presentFromBarButtonItem(sender, animated: true, completionHandler: completionHandler)
+        } else {
+            printController.presentAnimated(true, completionHandler: completionHandler);
+        }
+        
+    }
+    
+    private func translateInspection(inspection : Inspection) -> Inspection {
+        
+        if let dotInspectionExpiration = inspection.dotInspectionExpiration {
+            inspection.report["dotInspectionExpirationFormattedString"] = Constants.monthYearFormater.stringFromDate(dotInspectionExpiration)
+        } 
+        
+        inspection.report["currentDateTimeString"] = Constants.reportDateFormater.stringFromDate(NSDate())
+        if let carrier = inspection.carrier {
+            inspection.report["carrierName"] = carrier.name
+        }
+        
+        if let transferCompanyName = inspection.transfer?.name {
+            // TODO(rgrimm): Localize label text
+            inspection.report["transferCompanyLabel"] = "Transfer Company"
+            inspection.report["transferCompanyName"] = transferCompanyName
+        }
+        
+        if let usBrokerName = inspection.usBroker?.name {
+            // TODO(rgrimm): Localize label text
+            inspection.report["usBrokerLabel"] = "US Broker"
+            inspection.report["usBrokerName"] = usBrokerName
+        }
+        
+        if let tripNumber = inspection.tripNumber {
+            inspection.report["tripNumber"] = tripNumber
+        }
+        
+        if inspection.trailer.trailerType != .Unknown {
+            inspection.report["trailerType"] = "\(inspection.trailer.trailerType)"
+        }
+        
+        if let setTemperatureFahrenheit = inspection.tcuInfo.setTemperatureFahrenheit {
+            inspection.report["setTemperatureFahrenheit"] = "\(setTemperatureFahrenheit) °F"
+        }
+        
+        if let currentTemperatureFahrenheit = inspection.tcuInfo.currentTemperatureFahrenheit {
+            inspection.report["currentTemperatureFahrenheit"] = "\(currentTemperatureFahrenheit) °F"
+        }
+        
+        if let fuelLevel = inspection.tcuInfo.fuelLevel {
+            // TODO(rgrimm): Localize strings
+            var fuelLevelString : String
+            
+            switch fuelLevel {
+            case 0 : fuelLevelString = "Empty"
+            case 0.25 : fuelLevelString = "1/4"
+            case 0.5 : fuelLevelString = "1/2"
+            case 0.75 : fuelLevelString = "3/4"
+            case 1.0 : fuelLevelString = "Full"
+            default: fuelLevelString = ""
+            }
+            
+            inspection.report["fuelLevel"] = fuelLevelString
+        }
+        
+        for (index, value) in enumerate(inspection.tires) {
+            let naturalIndex = index + 1
+            if let brand = value.brand {
+                
+                if let otherBrand = value.otherBrand where brand == Constants.otherCompany {
+                    inspection.report["Tire\(naturalIndex)Brand"] = otherBrand
+                } else {
+                    inspection.report["Tire\(naturalIndex)Brand"] = brand.name
+                }
+                
+            } else {
+                inspection.report["Tire\(naturalIndex)Brand"] = ""
+            }
+            
+            if let depth = value.depth {
+                inspection.report["Tire\(naturalIndex)Depth"] = "\(depth)/32"
+            }
+            
+            if let psiValue = value.psiValue {
+                inspection.report["Tire\(naturalIndex)PSI"] = "\(psiValue)"
+            }
+            
+            if let damageData = value.damageData {
+               
+                if damageData.hasDamagedPictures() {
+                    inspection.report["Tire\(naturalIndex)Wheel"] = damageData.description + " 📷"
+                } else {
+                    inspection.report["Tire\(naturalIndex)Wheel"] = damageData.description
+                }
+            }
+            
+            if let isRecap = value.isRecap {
+                
+                // TODO(rgrimm): Localize string texts
+                if isRecap {
+                    inspection.report["Tire\(naturalIndex)isRecap"] = "Recap"
+                } else {
+                    inspection.report["Tire\(naturalIndex)isRecap"] = "Original"
+                }
+                
+            }
+        }
+        
+        for(index, value) in enumerate(inspection.seals) {
+            
+            let naturalIndex = index + 1
+            if let sealName = value.sealType?.name {
+                inspection.report["Seal\(naturalIndex)Name"] = sealName
+            }
+            if let sealNumber = value.sealNumber {
+                inspection.report["Seal\(naturalIndex)Number"] = sealNumber
+            }
+        }
+        
+        appendWithInspectionTriStateData("psiLight", value: inspection.psiLight)
+        appendWithInspectionTriStateData("leftDollyHandle", value: inspection.leftDollyHandle)
+        appendWithInspectionTriStateData("leftPlacardHolder", value: inspection.leftPlacardHolder)
+        appendWithInspectionTriStateData("leftAeroSkirt", value: inspection.leftAeroSkirt)
+        appendWithInspectionTriStateData("leftSliderHoseSpring", value: inspection.leftSliderHoseSpring)
+        
+        appendWithInspectionTriStateData("rightPlacardHolder", value: inspection.rightPlacardHolder)
+        appendWithInspectionTriStateData("rightArrowTurningLights", value: inspection.rightArrowTurningLights)
+        appendWithInspectionTriStateData("rightAeroSkirt", value: inspection.rightAeroSkirt)
+        appendWithInspectionTriStateData("rightOther", value: inspection.rightOther)
+        
+        appendWithInspectionTriStateData("frontPlacardHolder", value: inspection.frontPlacardHolder)
+        appendWithInspectionTriStateData("frontVinPlate", value: inspection.frontVinPlate)
+        appendWithInspectionTriStateData("frontGladHands", value: inspection.frontGladHands)
+        appendWithInspectionTriStateData("frontBillBox", value: inspection.frontBillBox)
+        appendWithInspectionTriStateData("frontPermitBox", value: inspection.frontPermitBox)
+        appendWithInspectionTriStateData("frontOther", value: inspection.frontOther)
+        
+        appendWithInspectionTriStateData("rearPlacardHolder", value: inspection.rearPlacardHolder)
+        appendWithInspectionTriStateData("rearLicensePlate", value: inspection.rearLicensePlate)
+        appendWithInspectionTriStateData("rearLicensePlateLight", value: inspection.rearLicensePlateLight)
+        appendWithInspectionTriStateData("rearMudFlaps", value: inspection.rearMudFlaps)
+        appendWithInspectionTriStateData("rearOther", value: inspection.rearOther)
+        
+        if let isLoaded = inspection.isLoaded where isLoaded == true {
+            // TODO(rgrimm): Localize this string
+            inspection.report["isLoaded"] = "Trailer Loaded"
+        }
+        appendWithInspectionTriStateData("insideFloor", value: inspection.insideFloor)
+        appendWithInspectionTriStateData("insideWalls", value: inspection.insideWalls)
+        appendWithInspectionTriStateData("insideRoof", value: inspection.insideRoof)
+        appendWithInspectionTriStateData("roof", value: inspection.roof)
+        
+        appendWithLightData("leftRedMarkerLights", value : inspection.leftRedMarkerLights)
+        appendWithLightData("leftABSLights", value : inspection.leftABSLights)
+        appendWithLightData("rightRedMarkerLights", value : inspection.rightRedMarkerLights)
+        
+        appendWithMultipleLightData("leftYellowLights", value: inspection.leftYellowMarkerLights)
+        appendWithMultipleLightData("rearRedMarkerLights", value : inspection.rearRedMarkerLights)
+        appendWithMultipleLightData("tailLights", value : inspection.tailLights)
+        appendWithMultipleLightData("rightYellowMarkerLights", value : inspection.rightYellowMarkerLights)
+        
+        inspection.report["inspectorFullName"] = serviceManager.authenticatedUserFullName
+        
+        return inspection
+    }
+    
+    private func appendWithInspectionTriStateData(key : String, value: InspectionTriStateData?) {
+        if let value = value {
+            inspection.report[key] = "\(value)"
+            
+            if value.hasDamagedPictures() {
+                inspection.report[key] = "\(value) 📷"
+            } else {
+                inspection.report[key] = "\(value)"
+            }
+        }
+    }
+    
+    private func appendWithLightData(key: String, value: Inspection.LightData) {
+        if let damagedData = value.damageData {
+            if damagedData == .NA {
+                inspection.report[key] = "\(damagedData)"
+            } else if let lightType = value.type {
+                
+                if damagedData.hasDamagedPictures() {
+                    inspection.report[key] = "\(lightType) \(damagedData) 📷"
+                } else {
+                    inspection.report[key] = "\(lightType) \(damagedData)"
+                }
+            }
+        }
+    }
+    
+    private func appendWithMultipleLightData(key: String, value: Inspection.LightData) {
+        if let damagedData = value.damageData, let lightType = value.type, let numLights = value.numLights {
+            
+            if damagedData.hasDamagedPictures() {
+                inspection.report[key] = "\(lightType) \(numLights) \(damagedData) 📷"
+            } else {
+                inspection.report[key] = "\(lightType) \(numLights) \(damagedData)"
+            }
+        }
+    }
+}

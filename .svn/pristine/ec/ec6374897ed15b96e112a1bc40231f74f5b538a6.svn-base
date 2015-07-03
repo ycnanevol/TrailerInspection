@@ -1,0 +1,342 @@
+//
+//  PopupDamageDetailsViewController.swift
+//  TrailerInspection
+//
+//  Created by Robert Grimm on 2015-04-07.
+//  Copyright (c) 2015 Werner Enterprises, Inc. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+public class PopupDamageDetailsViewController : ViewControllerBase {
+    
+    @IBOutlet weak var navItem : UINavigationItem!
+    @IBOutlet weak var damageTypesTable : UITableView!
+    @IBOutlet weak var additionalTextField : UITextField!
+    @IBOutlet weak var customToolbar : UIToolbar!
+    
+    weak var imagePopoverAnchor : UIButton!
+    var previousPopoverDelegate : UIPopoverPresentationControllerDelegate?
+    
+    var originalTextColor : UIColor!
+    var originalBackgroundColor : UIColor?
+    
+    var autoFinishAfterCamera = false
+    
+    var imagePickerController :  UIImagePickerController!
+    
+    public lazy var promptText : String? = {
+        self.navItem.prompt
+    }()
+    
+    var additionalText : String?
+    
+    private var _damageSet = Set<InspectionDamageType>()
+    private var _pictures = [] as [UIImage]
+    
+    public var damageState : (damages : Set<InspectionDamageType>, pictures : [UIImage]) {
+        get {
+            return (damages: _damageSet, pictures: _pictures)
+        }
+        set {
+            (_damageSet, _pictures) = newValue
+            
+            for damageType in _damageSet {
+                switch damageType {
+                case let .Other(additional):
+                    additionalText = additional
+                default:
+                    // Swift requires exhaustive, and requires at least 1 executable statement
+                    if true {}
+                }
+            }
+            
+            for picture in _pictures {
+                prependToolbarItem(picture, target: self, action: "showImagePopup:", forControlEvents: .TouchUpInside)
+            }
+        }
+    }
+    
+    @IBAction func cancelButtonDidClick(sender: UIBarButtonItem) {
+        performSegueWithIdentifier("DamageCancelUnwindSegue", sender: self)
+    }
+    
+    @IBAction func saveButtonDidClick(sender: UIBarButtonItem) {
+
+        if !_damageSet.isEmpty && _pictures.isEmpty && UIImagePickerController.isSourceTypeAvailable(.Camera) {
+            autoFinishAfterCamera = true
+            
+            openCamera()
+            
+            return
+        }
+        
+        if !_pictures.isEmpty && _damageSet.isEmpty {
+            flashDamageOptions()
+            
+            return
+        }
+        
+        performSegueWithIdentifier("DamageSaveUnwindSegue", sender: self)
+    }
+    
+    // MARK: Navigation stack
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        originalTextColor = additionalTextField.textColor
+        originalBackgroundColor = additionalTextField.backgroundColor
+        
+        for picture in _pictures {
+            prependToolbarItem(picture, target: self, action: "showImagePopup:", forControlEvents: .TouchUpInside)
+        }
+        
+        if let cameraIcon = UIImage(named: "In-App-Icon-Camera") {
+            let cameraButton = UIButton(frame: CGRectMake(0, 0, 28, 28))
+            cameraButton.setImage(cameraIcon, forState: .Normal)
+            cameraButton.addTarget(self, action: "openCamera", forControlEvents: .TouchUpInside)
+            let cameraBarButton = UIBarButtonItem(customView: cameraButton)
+        
+            customToolbar.items?.append(cameraBarButton)
+            
+            //TODO (jjiang) replace with prependToolbarItem(cameraIcon, target: self, action: "openCamera", forControlEvents: .TouchUpInside)
+        }
+        
+        imagePickerController =  UIImagePickerController()
+    }
+    
+    public override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        appDelegate.analyticsManager.screenDidAppear("DamageDetailsPopover")
+    }
+
+    public override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navItem.prompt = promptText
+        additionalTextField.text = additionalText
+        
+        previousPopoverDelegate = popoverPresentationController?.delegate
+        popoverPresentationController?.delegate = self
+    }
+    
+    public override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        appDelegate.analyticsManager.screenWillDisappear("DamageDetailsPopover")
+        
+        popoverPresentationController?.delegate = previousPopoverDelegate
+        
+        // previousPopoverDelegate variable is not weak, so make sure to clear it
+        previousPopoverDelegate = nil
+    }
+    
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "SingleDamagedImage",
+            let imagePopver = segue.destinationViewController as? DamagedImageViewController,
+            let barButtonItem = sender as? UIButton {
+                
+                //look up the bar item
+                for item in customToolbar.items as! [UIBarButtonItem] {
+                    
+                    if item.customView == barButtonItem {
+                        
+                        imagePopver.popoverPresentationController?.barButtonItem = item
+                        imagePopver.picture = barButtonItem.currentImage
+                        
+                    }
+                }
+        }
+    }
+    
+    // MARK: Utility functions
+    public func openCamera() {
+        
+        if _pictures.count > 2 {
+            return()
+        }
+        
+        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+            
+            imagePickerController.sourceType = .Camera
+            imagePickerController.delegate = self
+            imagePickerController.modalPresentationStyle = .FullScreen
+            
+            presentViewController(imagePickerController, animated: true, completion: nil)
+        } else {
+            // TODO(rgrimm): Localize these strings
+            let cameraNotAvailableAlertController = UIAlertController(title: "Camera Not Available", message: "The camera is not available on this device.", preferredStyle: .Alert)
+            
+            cameraNotAvailableAlertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (alertAction : UIAlertAction!) -> Void in
+                cameraNotAvailableAlertController.dismissViewControllerAnimated(true, completion: nil)
+            }))
+            
+            presentViewController(cameraNotAvailableAlertController, animated: true, completion: nil)
+        }
+    }
+    
+    public func prependToolbarItem(image : UIImage, target : AnyObject?, action : Selector, forControlEvents events : UIControlEvents) {
+        
+        let toolbarItemButton = UIButton(frame: CGRectMake(0, 0, 28, 28))
+        toolbarItemButton.setImage(image, forState: .Normal)
+        toolbarItemButton.addTarget(target, action: action, forControlEvents: events)
+        
+        let toolbarItem = UIBarButtonItem(customView: toolbarItemButton)
+        
+        customToolbar?.items?.insert(toolbarItem, atIndex: 0)
+    }
+    
+    public func showImagePopup(sender: UIButton) {
+        //MARK : No need right now. Joel will need it later :)
+        //performSegueWithIdentifier("SingleDamagedImage", sender: sender)
+    }
+    
+    func forEachCell(@noescape callback : (cell : DamageDetailCell) -> Void) {
+        for i in 0..<DamageDetailCell.labelTexts.count {
+            if let cell = damageTypesTable.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) as? DamageDetailCell {
+                
+                callback(cell: cell)
+                
+            }
+        }
+    }
+    
+    public func flashDamageOptions() {
+        UIView.animateWithDuration(Constants.animationDuration / 2, delay: 0, options: .AllowUserInteraction, animations: { () -> Void in
+            
+            self.forEachCell {
+                $0.setValidationFailHighlight(true)
+            }
+            
+            self.additionalTextField.textColor = Constants.validationFailTextColor
+            self.additionalTextField.backgroundColor = Constants.validationFailHighlightColor
+            
+            }) { (finished : Bool) -> Void in
+                UIView.animateWithDuration(Constants.animationDuration / 2, delay: 0, options: .AllowUserInteraction | .BeginFromCurrentState, animations: { () -> Void in
+                    
+                    self.forEachCell {
+                        $0.setValidationFailHighlight(false)
+                    }
+                    
+                    self.additionalTextField.textColor = self.originalTextColor
+                    self.additionalTextField.backgroundColor = self.originalBackgroundColor
+                    
+                }, completion: nil)
+        }
+    }
+}
+
+// MARK: - UIPopoverPresentationControllerDelegate extension
+extension PopupDamageDetailsViewController : UIPopoverPresentationControllerDelegate {
+    
+    public func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+        previousPopoverDelegate?.prepareForPopoverPresentation?(popoverPresentationController)
+    }
+    
+    public func popoverPresentationController(popoverPresentationController: UIPopoverPresentationController, willRepositionPopoverToRect rect: UnsafeMutablePointer<CGRect>, inView view: AutoreleasingUnsafeMutablePointer<UIView?>) {
+        previousPopoverDelegate?.popoverPresentationController?(popoverPresentationController, willRepositionPopoverToRect: rect, inView: view)
+    }
+    
+    public func popoverPresentationControllerShouldDismissPopover(popoverPresentationController: UIPopoverPresentationController) -> Bool {
+        // NOTE: This is *not* called when dismissing programmatically, such as when performing exit segues. Instead, it's called when tapping outside of the popover area.
+
+        var previousPopoverResponse = previousPopoverDelegate?.popoverPresentationControllerShouldDismissPopover?(popoverPresentationController)
+        
+        if previousPopoverResponse == nil || previousPopoverResponse! == true {
+            performSegueWithIdentifier("DamageCancelUnwindSegue", sender: self)
+        }
+        
+        return false
+    }
+    
+    public func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
+        previousPopoverDelegate?.popoverPresentationControllerDidDismissPopover?(popoverPresentationController)
+    }
+    
+}
+
+// MARK: - UITableViewDataSource extension
+extension PopupDamageDetailsViewController : UITableViewDataSource {
+    
+    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return DamageDetailCell.labelTexts.count
+    }
+    
+    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let damageType = DamageDetailCell.supportedDamageTypes[indexPath.item]
+        let selfDelegate = self as DamageDetailCellDelegate
+        let initialState = _damageSet.contains(damageType)
+
+        return DamageDetailCell.cellForTableView(tableView, damageType: damageType, initialState: initialState, delegate: selfDelegate)
+    }
+    
+}
+
+// MARK: - UITextFieldDelegate extension
+extension PopupDamageDetailsViewController : UITextFieldDelegate {
+    
+    public func textFieldDidEndEditing(textField: UITextField) {
+        if textField.text == nil || textField.text.isEmpty {
+            // When text field is empty, remove any kind of .Other from the set
+            _damageSet = Set(filter(_damageSet) { (element) -> Bool in
+                switch element {
+                case .Other: return false
+                default: return true
+                }
+            })
+        } else {
+            _damageSet.insert(.Other(additional: textField.text))
+        }
+    }
+    
+    public func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+}
+
+// MARK: - DamageDetailCellDelegate extension
+extension PopupDamageDetailsViewController : DamageDetailCellDelegate {
+    
+    public func damageValueDidChange(#damageTypeHash: Int, additional: String?, value: Bool) {
+        if let damageType = InspectionDamageType(hashValue: damageTypeHash, additional: additional) {
+            if value {
+                _damageSet.insert(damageType)
+            } else {
+                _damageSet.remove(damageType)
+            }
+        }
+    }
+    
+}
+
+//MARK: - UINavigationControllerDelegate extension
+extension PopupDamageDetailsViewController : UINavigationControllerDelegate { }
+    
+//MARK: - Take photo extension
+extension PopupDamageDetailsViewController : UIImagePickerControllerDelegate {
+    
+    public func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
+        
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            prependToolbarItem(image, target: self, action: "showImagePopup:", forControlEvents: .TouchUpInside)
+
+            _pictures.append(image)
+            
+            if autoFinishAfterCamera {
+                performSegueWithIdentifier("DamageSaveUnwindSegue", sender: self)
+            }
+        } else {
+            autoFinishAfterCamera = false
+        }
+    }
+}

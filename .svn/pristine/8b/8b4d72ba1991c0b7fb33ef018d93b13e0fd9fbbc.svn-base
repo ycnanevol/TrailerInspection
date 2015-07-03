@@ -1,0 +1,127 @@
+//
+//  InspectionOtherDamageCell.swift
+//  TrailerInspection
+//
+//  Created by Robert Grimm on 2015-04-13.
+//  Copyright (c) 2015 Werner Enterprises, Inc. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+public class InspectionOtherDamageCell : UITableViewCell {
+    
+    // MARK: InspectionOtherDamageCell.CellState
+    public class CellState : InspectionTableViewController.CellStateBase {
+        
+        public override init() {}
+        
+        public convenience init(label : String, changeHandler : ((changeType : ChangeType, sender : InspectionOtherDamageCell) -> Void)? = nil) {
+            self.init()
+            
+            self.labelText = label
+            
+            self.handler = changeHandler
+        }
+        
+        var labelText : String!
+        
+        var hasDamage : Bool = false
+        var damageSet = Set<InspectionDamageType>()
+        var pictures : [UIImage]!
+        
+        var hasCalledWithInitialDamageState = false
+        var handler : ((ChangeType, InspectionOtherDamageCell) -> Void)?
+        
+        public override func validate() -> Bool {
+            return true
+        }
+        
+        public override func rebuildTableCellForInspectionTable(inspectionTable: InspectionTableViewController, forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+            
+            let cell = inspectionTable.tableView.dequeueReusableCellWithIdentifier("OtherDamageCell", forIndexPath: indexPath) as! InspectionOtherDamageCell
+            
+            cell.inspectionTableController = inspectionTable
+            cell.state = self
+            
+            cell.damageButton.setTitle(labelText, forState: cell.damageButton.state)
+            
+            cell.damageButton.selected = hasDamage
+            
+            // Call handler if damage state hasn't been set yet
+            // TODO(rgrimm): Fix this so the cell doesn't have to display in order to set the value
+            if !hasCalledWithInitialDamageState {
+                handler?(.OK, cell)
+                hasCalledWithInitialDamageState = true
+            }
+            
+            return cell
+        }
+    }
+    
+    public typealias ChangeType = InspectionTriStateData
+    
+    // MARK: InspectionOtherDamageCell members
+    @IBOutlet weak var damageButton : UIButton!
+    
+    weak var inspectionTableController : InspectionTableViewController!
+    
+    var hasDamage : Bool {
+        get {
+            return state.hasDamage
+        }
+        set {
+            state.hasDamage = newValue
+            
+            UIView.animateWithDuration(Constants.animationDuration, animations: { () -> Void in
+                self.damageButton.selected = newValue
+            })
+        }
+    }
+    
+    weak var state : CellState!
+    
+    @IBAction public func performDamageDetailSegue() {
+        inspectionTableController.popoverAnchor = damageButton
+        inspectionTableController.popoverSegueDelegate = self
+        inspectionTableController.performSegueWithIdentifier("DamageDetailSegue", sender: self)
+    }
+    
+}
+
+// MARK: - InspectionSegueDelegate extension
+extension InspectionOtherDamageCell : InspectionSegueDelegate {
+    
+    public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let destination = segue.destinationViewController as? PopupDamageDetailsViewController {
+            // TODO(rgrimm): Localize the prompt text
+            destination.promptText = "Other Damage Details"
+            
+            destination.damageState = (damages: state.damageSet, pictures: state.pictures)
+        }
+    }
+    
+    public func prepareForUnwindSegue(segue: UIStoryboardSegue) {
+        
+        if let damageSource = segue.sourceViewController as? PopupDamageDetailsViewController {
+            if segue.identifier == "DamageSaveUnwindSegue" {
+                (state.damageSet, _) = damageSource.damageState
+            }
+            
+            hasDamage = !state.damageSet.isEmpty
+            
+            if segue.identifier == "DamageSaveUnwindSegue" {
+                let changeType : ChangeType
+                
+                if hasDamage {
+                    changeType = .Damaged(damages: state.damageSet, pictures: state.pictures)
+                } else {
+                    changeType = .OK
+                }
+                
+                state.handler?(changeType, self)
+            }
+        }
+    }
+    
+}

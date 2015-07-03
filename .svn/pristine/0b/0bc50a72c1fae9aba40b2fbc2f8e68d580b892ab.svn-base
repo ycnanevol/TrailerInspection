@@ -1,0 +1,305 @@
+//
+//  InspectionService.swift
+//  TrailerInspection
+//
+//  Created by Jerry Jiang on 11/6/15.
+//  Copyright (c) 2015 Werner Enterprises, Inc. All rights reserved.
+//
+
+import Foundation
+import CoreData
+
+public class InspectionService {
+    
+    public var managedObjectContext: NSManagedObjectContext
+    
+    public init(managedObjectContext: NSManagedObjectContext) {
+        self.managedObjectContext = managedObjectContext
+    }
+  
+    public func saveInspectionReportToCoreData(inspection : Inspection) {
+        
+        
+        var inspectionEntity : CdInspection = NSEntityDescription.insertNewObjectForEntityForName("Inspection", inManagedObjectContext: managedObjectContext)  as! CdInspection
+        
+        assignTrailer(inspection.trailer, inspectionEntity: inspectionEntity)
+        assignTcu(inspection.tcuInfo, inspectionEntity: inspectionEntity)
+        assignTireData(inspection.tires, inspectionEntity: inspectionEntity)
+        
+        if let carrier = inspection.carrier {
+            inspectionEntity.carrier = carrier.name
+        }
+        
+        if let transfer = inspection.transfer {
+            inspectionEntity.transfer = transfer.name
+        }
+        
+        if let usBroker = inspection.usBroker {
+            inspectionEntity.usBroker = usBroker.name
+        }
+        
+        inspectionEntity.documentNumber = NSUUID().UUIDString
+        
+        if let truckNumber = inspection.truckNumber {
+            inspectionEntity.truckNumber = truckNumber
+        }
+        
+        if let tripNumber = inspection.tripNumber {
+            inspectionEntity.tripNumber = tripNumber
+        }
+        
+        if let dotInspectionExpiration = inspection.dotInspectionExpiration {
+            inspectionEntity.dotInspectionExpiration = dotInspectionExpiration
+        }
+        
+        if let psiValveWasClosed = inspection.psiValveWasClosed {
+            inspectionEntity.psiValveWasClosed = psiValveWasClosed
+        }
+        
+        inspectionEntity.tireType = inspection.tireType.rawValue
+
+        assignTriStateDataForInspection(inspection.psiLight, inspectionEntity: inspectionEntity, indicator: "psiLight")
+        assignTriStateDataForInspection(inspection.leftDollyHandle, inspectionEntity: inspectionEntity, indicator: "leftDollyHandle")
+        assignTriStateDataForInspection(inspection.leftPlacardHolder, inspectionEntity: inspectionEntity, indicator: "leftPlacardHolder")
+        assignTriStateDataForInspection(inspection.leftAeroSkirt, inspectionEntity: inspectionEntity, indicator: "leftAeroSkirt")
+        assignTriStateDataForInspection(inspection.leftSliderHoseSpring, inspectionEntity: inspectionEntity, indicator: "leftSliderHoseSpring")
+        assignTriStateDataForInspection(inspection.leftOther, inspectionEntity: inspectionEntity, indicator: "leftOther")
+        assignTriStateDataForInspection(inspection.rearPlacardHolder, inspectionEntity: inspectionEntity, indicator: "rearPlacardHolder")
+        assignTriStateDataForInspection(inspection.rearLicensePlate, inspectionEntity: inspectionEntity, indicator: "rearLicensePlate")
+        assignTriStateDataForInspection(inspection.rearLicensePlateLight, inspectionEntity: inspectionEntity, indicator: "rearLicensePlateLight")
+        assignTriStateDataForInspection(inspection.rearMudFlaps, inspectionEntity: inspectionEntity, indicator: "rearMudFlaps")
+        assignTriStateDataForInspection(inspection.rearOther, inspectionEntity: inspectionEntity, indicator: "rearOther")
+        assignTriStateDataForInspection(inspection.insideFloor, inspectionEntity: inspectionEntity, indicator: "insideFloor")
+        assignTriStateDataForInspection(inspection.insideWalls, inspectionEntity: inspectionEntity, indicator: "insideWalls")
+        assignTriStateDataForInspection(inspection.insideRoof, inspectionEntity: inspectionEntity, indicator: "insideRoof")
+        assignTriStateDataForInspection(inspection.gpsCargoSensor, inspectionEntity: inspectionEntity, indicator: "gpsCargoSensor")
+        assignTriStateDataForInspection(inspection.rightPlacardHolder, inspectionEntity: inspectionEntity, indicator: "rightPlacardHolder")
+        assignTriStateDataForInspection(inspection.rightArrowTurningLights, inspectionEntity: inspectionEntity, indicator: "rightArrowTurningLights")
+        assignTriStateDataForInspection(inspection.rightAeroSkirt, inspectionEntity: inspectionEntity, indicator: "rightAeroSkirt")
+        assignTriStateDataForInspection(inspection.frontPlacardHolder, inspectionEntity: inspectionEntity, indicator: "frontPlacardHolder")
+        assignTriStateDataForInspection(inspection.frontVinPlate, inspectionEntity: inspectionEntity, indicator: "frontVinPlate")
+        assignTriStateDataForInspection(inspection.frontGladHands, inspectionEntity: inspectionEntity, indicator: "frontGladHands")
+        assignTriStateDataForInspection(inspection.frontBillBox, inspectionEntity: inspectionEntity, indicator: "frontBillBox")
+        assignTriStateDataForInspection(inspection.frontPermitBox, inspectionEntity: inspectionEntity, indicator: "frontPermitBox")
+        assignTriStateDataForInspection(inspection.frontOther, inspectionEntity: inspectionEntity, indicator: "frontOther")
+        assignTriStateDataForInspection(inspection.roof, inspectionEntity: inspectionEntity, indicator: "roof")
+        
+        //light data
+        assignLightData(inspection.leftYellowMarkerLights, inspectionEntity: inspectionEntity, indicator: "leftYellowMarkerLights")
+        assignLightData(inspection.leftRedMarkerLights, inspectionEntity: inspectionEntity, indicator: "leftRedMarkerLights")
+        assignLightData(inspection.leftABSLights, inspectionEntity: inspectionEntity, indicator: "leftABSLights")
+        assignLightData(inspection.rearRedMarkerLights, inspectionEntity: inspectionEntity, indicator: "rearRedMarkerLights")
+        assignLightData(inspection.tailLights, inspectionEntity: inspectionEntity, indicator: "tailLights")
+        assignLightData(inspection.rightYellowMarkerLights, inspectionEntity: inspectionEntity, indicator: "rightYellowMarkerLights")
+        assignLightData(inspection.rightRedMarkerLights, inspectionEntity: inspectionEntity, indicator: "rightRedMarkerLights")
+        
+        var error: NSError? = nil
+        managedObjectContext.hasChanges && managedObjectContext.save(&error)
+        
+        if error != nil {
+            //Hey
+        }
+    }
+    
+    private func assignTireData(tires: [Inspection.TireData], inspectionEntity: CdInspection) {
+        
+        for (index, singleTire) in enumerate(tires) {
+            
+            let tireEntity : CdTireData = NSEntityDescription.insertNewObjectForEntityForName("TireData", inManagedObjectContext: managedObjectContext)  as! CdTireData
+            
+            if let brand = singleTire.brand {
+                tireEntity.brand = brand.name
+            }
+            
+            if let otherBrand = singleTire.otherBrand {
+                tireEntity.otherBrand = otherBrand
+            }
+            if let depth = singleTire.depth {
+                tireEntity.depth = depth
+            }
+            
+            if let psiValue = singleTire.psiValue {
+                tireEntity.psiValue = psiValue
+            }
+            
+            if let isRecap = singleTire.isRecap {
+                tireEntity.isRecap = isRecap
+            }
+            
+            if let damageData = singleTire.damageData {
+                var triStateData = assignSingleTriStateData("Tire #\(index)", triStateDate: damageData)
+                //triStateData.tire = tireEntity
+                
+                tireEntity.damageData = triStateData
+            }
+            
+            tireEntity.inspection = inspectionEntity
+            inspectionEntity.tires.addObject(tireEntity)
+            
+        }
+        
+    }
+    
+    private func assignTcu(tcu: Inspection.TcuData, inspectionEntity: CdInspection) {
+        
+        let tcuEntity : CdTCU = NSEntityDescription.insertNewObjectForEntityForName("TCU", inManagedObjectContext: managedObjectContext)  as! CdTCU
+        if let currentTemperatureFahrenheit = tcu.currentTemperatureFahrenheit {
+            tcuEntity.currentTemperatureFahrenheit = currentTemperatureFahrenheit
+        }
+        if let setTemperatureFahrenheit = tcu.setTemperatureFahrenheit {
+            tcuEntity.setTemperatureFahrenheit = setTemperatureFahrenheit
+        }
+        if let fuelLevel = tcu.fuelLevel {
+            tcuEntity.fuelLevel = fuelLevel
+        }
+        
+        assignTriStateDataForTcu(tcu.upperDoors, tcuEntity: tcuEntity, inspectionEntity: inspectionEntity, indicator: "upperDoors")
+        assignTriStateDataForTcu(tcu.lowerDoors, tcuEntity: tcuEntity, inspectionEntity: inspectionEntity, indicator: "lowerDoors")
+        assignTriStateDataForTcu(tcu.grill, tcuEntity: tcuEntity, inspectionEntity: inspectionEntity, indicator: "grill")
+        assignTriStateDataForTcu(tcu.belts, tcuEntity: tcuEntity, inspectionEntity: inspectionEntity, indicator: "belts")
+        assignTriStateDataForTcu(tcu.hoses, tcuEntity: tcuEntity, inspectionEntity: inspectionEntity, indicator: "hoses")
+        assignTriStateDataForTcu(tcu.airChute, tcuEntity: tcuEntity, inspectionEntity: inspectionEntity, indicator: "airChute")
+        assignTriStateDataForTcu(tcu.bulkHeads, tcuEntity: tcuEntity, inspectionEntity: inspectionEntity, indicator: "bulkHeads")
+        assignTriStateDataForTcu(tcu.eTrack, tcuEntity: tcuEntity, inspectionEntity: inspectionEntity, indicator: "eTrack")
+        
+        tcuEntity.isAntiFreezeLow = tcu.isAntiFreezeLow.description
+        tcuEntity.isOilLow = tcu.isOilLow.description
+        
+        inspectionEntity.tcu = tcuEntity
+        
+        tcuEntity.inspection = inspectionEntity
+
+    }
+    
+    private func assignLightData(value: Inspection.LightData?, inspectionEntity : CdInspection, indicator : String) {
+        
+        if let lightData = value {
+            
+            let cdLightData: CdLight = NSEntityDescription.insertNewObjectForEntityForName("Light", inManagedObjectContext: managedObjectContext)  as! CdLight
+            
+            if let lightType = lightData.type {
+                cdLightData.type = lightType.description
+            }
+            
+            if lightData.numLights != nil {
+                cdLightData.numLights = lightData.numLights
+            }
+            
+            if let triStateData = lightData.damageData {
+                
+                inspectionEntity.setValue(triStateData.description, forKey: indicator)
+                
+                if triStateData.description == "Damaged" {
+                    
+                    let cdInspectionTriStateData = assignSingleTriStateData(indicator, triStateDate: triStateData)
+                    
+                    //inspectionEntity.damagedLightDataSet.addObject(cdInspectionTriStateData)
+                    
+                    cdInspectionTriStateData.inspection = inspectionEntity
+                }
+            }
+        }
+    }
+    
+    private func assignTriStateDataForInspection(value: InspectionTriStateData?, inspectionEntity : CdInspection, indicator : String) {
+        
+        if let triStateData = value {
+            
+            inspectionEntity.setValue(triStateData.description, forKey: indicator)
+            
+            if triStateData.description == "Damaged" {
+                
+                let cdInspectionTriStateData = assignSingleTriStateData(indicator, triStateDate: triStateData)
+                
+                inspectionEntity.damagedTriStateDataSet.addObject(cdInspectionTriStateData)
+                
+                cdInspectionTriStateData.inspection = inspectionEntity
+            }
+        }
+    }
+    
+    private func assignTriStateDataForTcu(value: InspectionTriStateData?, tcuEntity: CdTCU, inspectionEntity : CdInspection, indicator : String) {
+        
+        if let triStateData = value {
+            
+            tcuEntity.setValue(triStateData.description, forKey: indicator)
+            
+            if triStateData.description == "Damaged" {
+                
+                let cdInspectionTriStateData = assignSingleTriStateData(indicator, triStateDate: triStateData)
+                
+                inspectionEntity.damagedTriStateDataSet.addObject(cdInspectionTriStateData)
+                
+                cdInspectionTriStateData.inspection = inspectionEntity
+            }
+        }
+    }
+    
+    private func assignSingleTriStateData(indicator: String, triStateDate: InspectionTriStateData) -> CdInspectionTriStateData {
+        
+        let cdInspectionTriStateData : CdInspectionTriStateData = NSEntityDescription.insertNewObjectForEntityForName("InspectionTriStateData", inManagedObjectContext: managedObjectContext)  as! CdInspectionTriStateData
+        cdInspectionTriStateData.indicator = indicator
+        switch(triStateDate) {
+            
+        case .Damaged(let damages, let pictures) :
+            
+            //save damaged types and comment
+            for singleDamageType in damages {
+                
+                let damagedType : CdInspectionDamageType = NSEntityDescription.insertNewObjectForEntityForName("InspectionDamageType", inManagedObjectContext: managedObjectContext)  as! CdInspectionDamageType
+                damagedType.name = singleDamageType.description
+                
+                switch(singleDamageType) {
+                case .Other(let comment):
+                    cdInspectionTriStateData.comment = comment
+                default: if true {}
+                }
+                
+                damagedType.inspectionTriStateData = cdInspectionTriStateData
+            }
+            
+            //save pictures
+            for singleImage in pictures {
+                
+                let imageData = UIImageJPEGRepresentation(singleImage, 1)
+                let damagedImage: CdDamagedImage = NSEntityDescription.insertNewObjectForEntityForName("DamagedImage", inManagedObjectContext: managedObjectContext)  as! CdDamagedImage
+                damagedImage.data = imageData
+                damagedImage.identity = NSUUID().UUIDString
+                
+                damagedImage.inpsectionTriStateData = cdInspectionTriStateData
+            }
+            
+        default: if true{}
+            
+        }
+        
+        return cdInspectionTriStateData
+    }
+    
+    private func assignTrailer(trailer: Trailer, inspectionEntity: CdInspection) {
+        
+        let trailerEntity : CdTrailer = NSEntityDescription.insertNewObjectForEntityForName("Trailer", inManagedObjectContext: managedObjectContext)  as! CdTrailer
+
+        //KVC attributes are lucky
+        var kvcAttributes : [String] = ["trailerNumber", "licenseNumber", "licenseState", "owner", "vin", "numberOfAxles", "heightInFeet", "lengthInFeet", "make", "model", "modelYear"]
+        
+        for singleAttribute in kvcAttributes {
+            
+            if let value : AnyObject? = trailer.valueForKey(singleAttribute) {
+                trailerEntity.setValue(value, forKey: singleAttribute)
+            }
+        }
+        
+        trailerEntity.trailerType = trailer.trailerType.description
+        
+        trailerEntity.isLoaded = trailer.isLoaded.description
+        trailerEntity.isAeroSkirtEquipped = trailer.isAeroSkirtEquipped.description
+        trailerEntity.isPsiEquipped = trailer.isPsiEquipped.description
+        trailerEntity.isGpsEquipped = trailer.isGpsEquipped.description
+
+        
+        inspectionEntity.trailer = trailerEntity
+        trailerEntity.inspection = inspectionEntity
+
+    }
+}

@@ -1,0 +1,196 @@
+//
+//  InspectionViewControllerBase.swift
+//  TrailerInspection
+//
+//  Created by Robert Grimm on 2015-03-30.
+//  Copyright (c) 2015 Werner Enterprises, Inc. All rights reserved.
+//
+
+import UIKit
+
+class InspectionViewControllerBase : ScrollingViewControllerBase {
+    
+    static let localizedStatusTextFormat = NSLocalizedString("StatusText", tableName: "InspectionViews", bundle: .mainBundle(), value: "Trailer #%@ | VIN %@", comment: "The format for the status text when inspecting a trailer")
+    
+    var trailer : Trailer!
+    var validationDelegate : InspectionFormValidationDelegate?
+    var previousValidationFailures : [UIView] = []
+    
+    private var _isFromInspectionView : Bool = false
+    
+    var isHighlighting : Bool = false
+    
+    private var _inspection : Inspection!
+    var inspection : Inspection {
+        get {
+            if _inspection == nil {
+                WernerLog("New inspection object instantiated")
+                _inspection = Inspection(trailer: trailer)
+            }
+            return _inspection
+        }
+        set {
+            _inspection = newValue
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if _isFromInspectionView {
+            // Drop previous page out of the history
+            navigationController?.viewControllers.removeAtIndex(navigationController!.viewControllers.count - 2)
+        }
+        
+        if let selfDelegate = self as? InspectionFormValidationDelegate {
+            validationDelegate = selfDelegate
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let navController = navigationController as? TrailerInspectionNavController,
+            let trailerNumber = trailer.trailerNumber {
+                var index = trailer.vin.endIndex
+                for i in 1...6 { index = index.predecessor() }
+                let lastSixOfVin : String = trailer.vin.substringFromIndex(index)
+                navController.statusText = String(format: InspectionViewControllerBase.localizedStatusTextFormat, trailerNumber, lastSixOfVin)
+        }
+    }
+    
+    func highlightViews(views : [UIView]) {
+        if isHighlighting {
+            return
+        }
+
+        var originalTextColors : [UIColor?] = [UIColor?](count: views.count, repeatedValue: nil)
+        var originalBackgrounds : [UIColor?] = [UIColor?](count: views.count, repeatedValue: nil)
+        
+        var generateAnimations = { (reverse : Bool) -> () -> Void in
+            return { () -> Void in
+                for index in indices(views) {
+                    let view = views[index]
+                    var front : UIColor?
+                    var back : UIColor?
+                    
+                    if reverse {
+                        front = originalTextColors[index]
+                        back = originalBackgrounds[index]
+                    } else {
+                        front = Constants.validationFailTextColor
+                        back = Constants.validationFailHighlightColor
+                    }
+                    
+                    if front != nil {
+                        if let textField = view as? UITextField {
+                            if !reverse {
+                                originalTextColors[index] = textField.textColor
+                            }
+                            
+                            textField.textColor = front
+                        } else {
+                            if !reverse {
+                                originalTextColors[index] = view.tintColor
+                            }
+                            
+                            view.tintColor = front
+                        }
+                    }
+                
+                    if !reverse {
+                        originalBackgrounds[index] = view.backgroundColor
+                    }
+                    
+                    view.backgroundColor = back
+                }
+            }
+        }
+        
+        isHighlighting = true
+        UIView.animateWithDuration(Constants.animationDuration / 2, delay: 0, options: .AllowUserInteraction, animations: generateAnimations(false)) { (finished : Bool) -> Void in
+            UIView.animateWithDuration(Constants.animationDuration / 2, delay: 0, options: .AllowUserInteraction | .BeginFromCurrentState, animations: generateAnimations(true)) { (finished : Bool) -> Void in
+                self.isHighlighting = false
+            }
+        }
+    }
+    
+    #if DEBUG
+        var numValidateFails = 0
+    #endif
+    
+    @IBAction func validateAndNextPage() {
+        if !tryValidateAndNextPage() {
+            #if DEBUG
+                numValidateFails++
+                
+                if numValidateFails > 1 {
+                    if inspection.isLoaded == nil {
+                        inspection.isLoaded = false
+                    }
+                    
+                    nextPage()
+                }
+            #endif
+        }
+    }
+    
+    func tryValidateAndNextPage() -> Bool {
+        // End any editing, so values will save
+        view.endEditing(true)
+        
+        if let failedViews = validationDelegate?.getValidationFailureViews() {
+            if !failedViews.isEmpty {
+                highlightViews(failedViews)
+                return false
+            }
+        }
+        
+        if let delegate = validationDelegate {
+            if delegate.getValidationPassingState() {
+                nextPage()
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    func nextPage() {
+        performSegueWithIdentifier("InspectionNextPage", sender: self)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        
+        if let containerDestination = segue.destinationViewController as? InspectionViewControllerBase {
+            containerDestination.trailer = trailer
+            containerDestination._isFromInspectionView = true
+            containerDestination._inspection = _inspection
+        }
+        
+        if let inspectionDestination = segue.destinationViewController as? InspectionTableViewController {
+            if let selfDataSource = self as? InspectionFormDataSource {
+                inspectionDestination.inspectionItems = selfDataSource.getInspectionItems()
+            }
+            
+            if validationDelegate == nil {
+                validationDelegate = inspectionDestination as InspectionFormValidationDelegate
+            }
+        }
+    }
+
+}
+
+@objc public protocol InspectionFormDataSource {
+    
+    func getInspectionItems() -> [InspectionTableViewController.CellStateBase]
+    
+}
+
+@objc public protocol InspectionFormValidationDelegate {
+
+    func getValidationPassingState() -> Bool
+    func getValidationFailureViews() -> [UIView]
+
+}
